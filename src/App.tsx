@@ -6,6 +6,7 @@ import { Login } from './Pages/login';
 import { Register } from './Pages/register';
 import { VendorRegistration } from './Pages/vendorRegistration';
 import { ContactUs } from './Pages/contactUs';
+import PrivateRoute from './Components/PrivateRoutes/privateRoute';
 
 
 function App() {
@@ -21,8 +22,12 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/vendor" element={<VendorRegistration />} />
             <Route path="/contactUs" element={<ContactUs />} />
-            {/* <Route path="/userDashboard" element={<UserDashboard />} />
+            {/* //PrivateRoutes */}
+            <Route path="" element={<PrivateRoute />} >
+               {/* <Route path="/userDashboard" element={<UserDashboard />} />
             <Route path="/vendorDashboard" element={<VendorDashboard />} /> */}
+            </Route>
+            
           </Routes>
         </main>
 

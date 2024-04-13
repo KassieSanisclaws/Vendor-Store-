@@ -1,8 +1,15 @@
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useThemeMode } from '../../main';
 import { Container, CssBaseline, Grid, Box, Typography } from '@mui/material';
 
+
 export function UserDashboard() {
     const { mode } = useThemeMode();
+    const [name, setName] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
+    const { userInfo } = useSelector((state: any) => state.auth);
+
 
     return (
         <Container maxWidth="xl" sx={{ bgcolor: mode === "dark" ? "#A2F3D1" : "#29AB87", height: "90vh", padding: "10px", borderRadius: "15px" }}>
