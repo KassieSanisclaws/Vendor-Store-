@@ -6,13 +6,11 @@ import { Container, CssBaseline, Grid, Box, Typography } from '@mui/material';
 
 export function UserDashboard() {
     const { mode } = useThemeMode();
-    const [name, setName] = useState<string>("");
-    const [email, setEmail] = useState<string>("");
     const { userInfo } = useSelector((state: any) => state.auth);
 
 
     return (
-        <Container maxWidth="xl" sx={{ bgcolor: mode === "dark" ? "#A2F3D1" : "#29AB87", height: "90vh", padding: "10px", borderRadius: "15px" }}>
+        <Container maxWidth="xl" sx={{ bgcolor: mode === "dark" ? "#A2F3D1" : "#29AB87", height: "90vh", padding: "10px", borderRadius: "15px", mt: 3, mb: 6 }}>
             <CssBaseline />
             <Grid sx={{ bgcolor: mode === "dark" ? "primary.dark" : "primary.light", height: "100%", width: "100%", borderRadius: "10px", overflowY: "auto", scrollbarColor: mode === "dark" ? "#29AB87 #A2F3D1" : "#A2F3D1 #29AB87", scrollbarWidth: "thin", }}>
                 <Grid item xs={3}>

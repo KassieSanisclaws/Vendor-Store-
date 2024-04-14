@@ -7,6 +7,7 @@ import { Register } from './Pages/register';
 import { VendorRegistration } from './Pages/vendorRegistration';
 import { ContactUs } from './Pages/contactUs';
 import PrivateRoute from './Components/PrivateRoutes/privateRoute';
+import { UserDashboard } from './Screens/Users/userAccountPage';
 
 
 function App() {
@@ -23,9 +24,10 @@ function App() {
             <Route path="/vendor" element={<VendorRegistration />} />
             <Route path="/contactUs" element={<ContactUs />} />
             {/* //PrivateRoutes */}
+            <Route path="/userDashboard" element={<UserDashboard />} />
             <Route path="" element={<PrivateRoute />} >
-               {/* <Route path="/userDashboard" element={<UserDashboard />} />
-            <Route path="/vendorDashboard" element={<VendorDashboard />} /> */}
+               
+            {/* <Route path="/vendorDashboard" element={<VendorDashboard />} /> */}
             </Route>
             
           </Routes>
