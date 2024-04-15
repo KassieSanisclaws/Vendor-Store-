@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useThemeMode } from '../main';
 import { Form, RegisterFormData } from '../Components/Forms/form';
-import { AlertColor } from '@mui/material/';
+import { AlertColor, CircularProgress, Stack, Box } from '@mui/material/';
 import { AccountCircle } from '@mui/icons-material';
 import { useRegisterMutation } from '../../Redux-Store/Features/Slices/userSlice';
 import { setCredentials } from '../../Redux-Store/Features/Slices/authSlice';
@@ -75,6 +75,7 @@ export function Register() {
                 confirmPassword: formData.confirmPassword
             }).unwrap();
             dispatch(setCredentials({ ...resp }));
+            setLoading(true);
             // navigate("/login");
             handleSnackBarOpen("success", "Registration successful");
         } catch (err) {
@@ -94,7 +95,36 @@ export function Register() {
 //     }
 // }, [userInfo, navigate]);
 
+
+   useEffect(() => {
+     const timer = setTimeout(() => {
+            setLoading(false);
+     }, 2000);
+    return () => clearTimeout(timer);
+    }, []);
+
 return (
+    <>
+      <Box
+            sx={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                bgcolor: loading ? 'rgba(0, 0, 0, 0.5)' : "", //Semi-transparent background overlay
+                zIndex: loading ? 9999 : -1, // Ensure CircularProgress is above other content when loading
+            }}
+        >
+         {loading && (
+            <Stack sx={{ color: "grey" }} spacing={2} direction="row" justifyContent="center" alignItems="center">
+                <CircularProgress color="secondary" />
+            </Stack>
+         )}
+      </Box>
     <Form 
         mode={mode}
         loading={loading}
@@ -115,5 +145,6 @@ return (
         snackbarState={snackbarState}
         handleSnackbarClosed={handleSnackBarClose}
     />
-)
+    </>   
+  )
 }

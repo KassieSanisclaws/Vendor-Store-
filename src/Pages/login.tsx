@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useThemeMode } from '../main';
 import { Form, LoginFormData } from '../Components/Forms/form';
-import { AlertColor } from '@mui/material/';
+import { AlertColor, CircularProgress, Stack, Box } from '@mui/material/';
 import { LockOutlined } from '@mui/icons-material';
 import { useLoginMutation } from '../../Redux-Store/Features/Slices/userSlice';
 import { setCredentials } from '../../Redux-Store/Features/Slices/authSlice';
@@ -13,7 +13,7 @@ export function Login(){
     const { mode } = useThemeMode();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [login, { isLoading }] = useLoginMutation();
     const { userInfo } = useSelector((state: any) => state.auth);
     const [snackbarState, setSnackbarState] = useState({
@@ -61,6 +61,7 @@ export function Login(){
                 password: loginData.password
             }).unwrap();
             dispatch(setCredentials({ ...resp }));
+            setLoading(true);
             handleSnackBarOpen("success", "Login successful");
             // navigate("/");
         } catch (err) {
@@ -72,14 +73,42 @@ export function Login(){
         console.log("Login Handler triggered" + loginData.email + " " + loginData.password);
     };
 
-    //UseEffect if userInfor redirect to page for user dashboard.
+    // UseEffect if userInfor redirect to page for user dashboard.
     // useEffect(() => {
     //     if (userInfo) {
     //         navigate("/");
     //     }
     // }, [navigate, userInfo,]);
 
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+        return () => clearTimeout(timer);
+    }, []);
+
     return (
+        <>
+        <Box 
+            sx={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                bgcolor: loading ? 'rgba(0, 0, 0, 0.5)' : "", //Semi-transparent background overlay
+                zIndex: loading ? 9999 : -1, // Ensure CircularProgress is above other content when loading
+            }}
+          >
+              {loading && (
+                <Stack sx={{ color: 'grey.500' }} spacing={2} direction="row">
+                      <CircularProgress color="primary" />
+                </Stack>
+              )}
+        </Box>
         <Form 
             mode={mode}
             loading={loading}
@@ -96,6 +125,6 @@ export function Login(){
             includeImageField={true}
             includeSnackbarPopup={true}
         />
-
+      </>
     )
 }

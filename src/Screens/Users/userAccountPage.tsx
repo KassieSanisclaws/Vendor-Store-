@@ -2,6 +2,11 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useThemeMode } from '../../main';
 import { Container, CssBaseline, Grid, Box, Typography } from '@mui/material';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+import dayjs from 'dayjs';
+
 
 
 export function UserDashboard() {
@@ -30,9 +35,14 @@ export function UserDashboard() {
                         </Grid>
 
                         <Grid item xs={12} md={6}>
-                            <Box sx={{ height: "45vh", display: "flex", flexDirection: "column", bgcolor: "violet" }}>
-                                <Typography variant="h5">Calendar</Typography>
-                                here
+                            <Box sx={{ height: "45vh", display: "flex", flexDirection: "column" }}>
+                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                    <DateCalendar 
+                                        defaultValue={dayjs()} //Provide a default value for the calendar
+                                        views={['year', 'month', 'day']} //Include the views you want to display
+                                        sx={{ height: "100%", width: "100%", bgcolor: "lightblue" }}
+                                    />
+                                </LocalizationProvider>
                             </Box>
                         </Grid>
 

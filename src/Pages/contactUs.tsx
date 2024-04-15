@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useThemeMode } from '../main'; 
 import { Form, ContactUsFormData } from '../Components/Forms/form';
-import { AlertColor } from '@mui/material/';
+import { AlertColor, CircularProgress, Stack, Box } from '@mui/material/';
 import { CatchingPokemon } from '@mui/icons-material';
+
 
 export const ContactUs = () => {
     const { mode } = useThemeMode();
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [snackbarState, setSnackbarState] = useState({ 
         open: false, 
         message: "", 
@@ -53,6 +54,8 @@ export const ContactUs = () => {
         }
 
         try {
+            // Handle form submission logic here
+            setLoading(true);
             console.log("Submitting form with data:");
         } catch (error) {
             console.log("An error occurred while submitting the form:", error);
@@ -61,7 +64,35 @@ export const ContactUs = () => {
         console.log("Submitting contactUs form with data:");
     };
 
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+        return () => clearTimeout(timer);
+    }, []);
+
     return (
+      <>
+      <Box
+          sx={{
+              top: 0,
+              left: 0,
+              position: 'fixed',
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              bgcolor: loading ? 'rgba(0, 0, 0, 0.5)' : "", //Semi-transparent background overlay
+              zIndex: loading ? 9999 : -1, // Ensure CircularProgress is above other content when loading
+          }}
+      >
+        {loading && (
+          <Stack sx={{ color: 'grey.500' }} spacing={2} direction="row">
+              <CircularProgress color="primary" />
+          </Stack>
+        )}
+      </Box>
        <Form 
          mode={mode}
          loading={loading}
@@ -79,5 +110,6 @@ export const ContactUs = () => {
          includeContactUsPhoneNumberField={true}
          includeContactUsMessageField={true}   
        />
+     </>
     )
 }
