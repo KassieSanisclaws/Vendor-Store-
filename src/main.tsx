@@ -4,7 +4,6 @@ import { createRoot } from 'react-dom/client';
 import { store } from '../Redux-Store/store';
 import { CssBaseline } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { red } from '@mui/material/colors';
 import App from './App.tsx';
 
 type AppThemeProviderProps = {
@@ -37,11 +36,16 @@ const AppThemeProvider: React.FC<AppThemeProviderProps> = ({ children }) => {
     palette: {
       mode: mode,
       primary: {
-        main: red[100],
-
+        main: '#E0C2FF',
       },
+      secondary: {
+        main: '#E0C2FF',
+        light: '#F5EBFF',
+        dark: '#47008F'
     },
-  });
+  
+  }
+});
 
   return (
     <ThemeContext.Provider value={{ mode, toggleThemeMode }}>
