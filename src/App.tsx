@@ -8,7 +8,12 @@ import { VendorRegistration } from './Pages/vendorRegistration';
 import { ContactUs } from './Pages/contactUs';
 import PrivateRoute from './Components/PrivateRoutes/privateRoute';
 import { UserDashboard } from './Screens/Users/userAccountPage';
-
+import UserProfile from './Screens/Users/userProfile';
+import UserRoute from './Components/PrivateRoutes/userRoute';
+import VendorRoute from './Components/PrivateRoutes/vendorRoute';
+import AdminRoute from './Components/PrivateRoutes/adminRoute';
+import vendorAccountPage from './Screens/Vendors/vendorAccountPage';
+import VendorAccountPage from './Screens/Vendors/vendorAccountPage';
 
 function App() {
   return (
@@ -24,11 +29,24 @@ function App() {
             <Route path="/vendor" element={<VendorRegistration />} />
             <Route path="/contactUs" element={<ContactUs />} />
             {/* //PrivateRoutes */}
-            <Route path="/userDashboard" element={<UserDashboard />} />
-            <Route path="" element={<PrivateRoute />} >
-               
+            <Route path="" element={<PrivateRoute />} >  
             {/* <Route path="/vendorDashboard" element={<VendorDashboard />} /> */}
             </Route>
+            <Route path="" element={<UserRoute />}>
+               
+            </Route>
+
+            <Route path="/userDashboard" element={<UserDashboard />} />
+            <Route path="/userProfile" element={<UserProfile />} />
+            <Route path="/vendorDashboard" element={<VendorAccountPage />} />
+
+            <Route path="" element={<VendorRoute />} >
+                
+            </Route> 
+            <Route path="" element={<AdminRoute />} >
+
+            </Route>
+           
             
           </Routes>
         </main>
