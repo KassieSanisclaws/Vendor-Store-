@@ -12,7 +12,7 @@ import UserProfile from './Screens/Users/userProfile';
 import UserRoute from './Components/PrivateRoutes/userRoute';
 import VendorRoute from './Components/PrivateRoutes/vendorRoute';
 import AdminRoute from './Components/PrivateRoutes/adminRoute';
-import vendorAccountPage from './Screens/Vendors/vendorAccountPage';
+import { About } from './Pages/about';
 import VendorAccountPage from './Screens/Vendors/vendorAccountPage';
 
 function App() {
@@ -39,7 +39,7 @@ function App() {
             <Route path="/userDashboard" element={<UserDashboard />} />
             <Route path="/userProfile" element={<UserProfile />} />
             <Route path="/vendorDashboard" element={<VendorAccountPage />} />
-
+            <Route path="/about" element={<About />} />
             <Route path="" element={<VendorRoute />} >
                 
             </Route> 

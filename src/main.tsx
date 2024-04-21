@@ -44,7 +44,20 @@ const AppThemeProvider: React.FC<AppThemeProviderProps> = ({ children }) => {
         dark: '#47008F'
     },
   
-  }
+  },
+  components: {
+       MuiIcon: {
+           styleOverrides: {
+              root: {
+                    '&:hover': {
+                    '& .MuiSvgIcon-root': {
+                     color: 'red',
+                 },
+              },
+           }
+      }
+    }
+  },
 });
 
   return (
