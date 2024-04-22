@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useThemeMode } from '../../main';
-import { Container, CssBaseline, Grid, Box, Typography, Skeleton, Stack, CircularProgress, Card, ListItem, Divider, ListItemButton,
-         ListItemIcon, ListItemText, List, SwipeableDrawer, Button, Accordion, AccordionSummary, AccordionDetails, AccordionSlots,
-         Fade, Checkbox, TableContainer, TableHead, Table, TableRow, Paper, TableCell, TableBody, TablePagination } from '@mui/material';
-import { ExpandMore } from '@mui/icons-material';
+import { Box, CircularProgress, Stack, Typography, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Button, SwipeableDrawer, AlertColor } from '@mui/material';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import dayjs from 'dayjs';
+import PageLayout from '../../Components/Page-Layout/pageLayout';
+import { ButtonData } from '../../Types/typeInterface';
 
 
 interface ColumnHistory {
@@ -91,8 +86,15 @@ export function UserDashboard() {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const { userInfo } = useSelector((state: any) => state.auth);
+    const [messages, setMessages] = useState<string[]>([]);
+    const [newMessage, setNewMessage] = useState<string>('');
     const [swipableState, setSwipableState] = useState({ left: false });
-    const [expanded, setExpanded] = useState<Array<boolean>>([false, false, false, false]);
+    const [snackbarState, setSnackbarState] = useState({
+        active: false,
+        severity: ''  as AlertColor,
+        message: '',
+    });
+    // const [expanded, setExpanded] = useState<Array<boolean>>([false, false, false, false]);
     const toggleDrawer = (anchor: Anchor, open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
         if (event && event.type === 'keydown' && ((
               event as React.KeyboardEvent).key === 'Tab' || 
@@ -103,26 +105,42 @@ export function UserDashboard() {
         setSwipableState({ ...swipableState, [anchor]: open });
     };
 
-    const handleExpansion = (index: number) => {
-        setExpanded((prevExpanded) => {
-            const newExpanded = [...prevExpanded];
-            newExpanded[index] = !newExpanded[index];
-            return newExpanded;
-        });
+    const handleSnackBarOpen = (severity: AlertColor, message: string) => {
+        let snackBarMessage = message || "";
+
+        if (severity === 'error') {
+            snackBarMessage = message;
+            setSnackbarState({ ...snackbarState, active: true, severity: severity, message: snackBarMessage });
+        } else if (severity === 'success') {
+            snackBarMessage = message;
+            setSnackbarState({ ...snackbarState, active: true, severity: severity, message: snackBarMessage });
+        }
+        console.log('Handler triggered: ' + snackBarMessage + ' ' + severity);
     };
 
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-    const handleChangePage = (e: any, newPage: number) => {
-        e.preventDefault();
-        setPage(newPage);
+    const handleSendMessage = () => {
+        if (newMessage.trim() !== '') {
+            setMessages([...messages, newMessage]);
+            setNewMessage('');
+        }
     };
 
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRowsPerPage(+event.target.value);
-        setPage(0);
+    const handleSnackbarClose = () => {
+        setSnackbarState({ ...snackbarState, active: false });
     };
+
+    // // Update handleNewMessage to update newMessage and newMessageState
+    const handleNewMessage = ({ message }: { Active: boolean; message: string }) => {
+        setNewMessage(message);
+        // Update newMessageState with the new message content
+        // Also, make sure to include the Active state
+        // Determine Active state based on whether the message is not an empty string
+    };
+
+    function handleMessageDelete(message: string): void {
+        setMessages(messages.filter((msg) => msg !== message));
+        handleSnackBarOpen('error', 'Message Deleted');
+    }
 
     const list = (anchor: Anchor) => (
         <Box
@@ -203,6 +221,19 @@ export function UserDashboard() {
         },
     ];
 
+    const handleEditChanges = (e: any) => {
+        e.preventDefault();
+        console.log('Edit Picture To Be Implemented');
+    }
+
+    const buttonsData: ButtonData[] = [
+        { name: "Edit Picture", onClick: handleEditChanges },
+        { name: "Edit Profile", to: '/editProfile', onClick: handleEditChanges },
+        { name: "Edit Store Items", onClick: handleEditChanges },
+        { name: "Edit Store Greetings", onClick: handleEditChanges },
+        { name: "Change Password", onClick: handleEditChanges },
+    ];
+
     useEffect(() => {
     if (userInfo) {
         setLoading(false);
@@ -210,10 +241,6 @@ export function UserDashboard() {
     }
    },[userInfo, navigate]);
 
-const handleEditPicture = (e: any) =>  {
-      e.preventDefault();
-        throw new Error('Function not implemented.');
-    }
 
     return (
         <>
@@ -254,208 +281,43 @@ const handleEditPicture = (e: any) =>  {
                     </React.Fragment>
                 ))}
             </Box>
-        <Container maxWidth="xl" sx={{ bgcolor: mode === "dark" ? "#A2F3D1" : "#29AB87", height: "90vh", padding: "10px", borderRadius: "15px", mt: 3, mb: 6 }}>
-            <CssBaseline />
-            <Grid sx={{ bgcolor: mode === "dark" ? "primary.dark" : "#f9fcff", height: "100%", width: "100%", borderRadius: "10px", overflowY: "auto", scrollbarColor: mode === "dark" ? "#29AB87 #A2F3D1" : "#A2F3D1 #29AB87", scrollbarWidth: "thin", }}>
-                <Grid item xs={3}>
-                    <Grid container spacing={1} sx={{ height: "30%", overflow: "hidden" }}>
-
-                        <Grid item xs={12} md={6}>
-                            <Box sx={{ height: "45vh", display: "flex", flexDirection: "column" }}>
-                                    <Box sx={{ flexGrow: 1, overflow: "auto", display: "flex", alignItems: "center", justifyContent: "center", scrollbarColor: mode === "dark" ? "#29AB87 #A2F3D1" : "#A2F3D1 #29AB87", scrollbarWidth: "thin", }}>
-                                    <Box sx={{ height: "100%", width: "100%" }}>
-                                         <Box sx={{ bgcolor: "grey", width: "100%", height: '28vh', overflow: "hidden" }}>
-                                             <img src="user-profile-picture-url" alt="User" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                                            picture here
-                                         </Box>
-                                            <Box sx={{ display: "flex", flexDirection: "column", mt: 1 }}>
-                                                {/* Edit Picture Button */}
-                                                <Button variant="contained" onClick={handleEditPicture}>
-                                                    Edit Picture
-                                                </Button>
-
-                                                {/* Edit Profile Button (Link to userProfile page) */}
-                                                <Link to="/userProfile" style={{ textDecoration: "none" }}>
-                                                    <Button variant="contained" sx={{ width: "100%", mt: 1 }}>
-                                                        Edit Profile
-                                                    </Button>
-                                                </Link>
-
-                                                {/* Edit Picture Button */}
-                                                <Button variant="contained" onClick={handleEditPicture} sx={{ mt: 1 }}>
-                                                    Change Password
-                                                </Button>
-                                            </Box>
-                                      </Box>
-                                    <Box sx={{ height: "100%", width: "100%" }}>
-                                       <Box sx={{ display: "flex", justifyContent: "center", padding: "5px" }}>
-                                        <Typography variant='h4'>News Feeds</Typography>
-                                        </Box>
-                                        {data.map((_, idx: number) => (    
-                                            <Accordion
-                                                key={idx}
-                                                expanded={expanded[idx]}
-                                                onChange={() => handleExpansion(idx)}
-                                                slots={{ transition: Fade as AccordionSlots['transition'] }}
-                                                slotProps={{ transition: { timeout: 400 } }}
-                                                sx={{
-                                                    '& .MuiAccordion-region': { height: expanded ? 'auto' : 0 },
-                                                    '& .MuiAccordionDetails-root': { display: expanded ? 'block' : 'none' },
-                                                }}
-                                                
-                                            >
-                                                <AccordionSummary
-                                                    expandIcon={<ExpandMore />}
-                                                    aria-controls={`panel${idx + 1}-content`}
-                                                    id={`panel${idx + 1}-header`}
-                                                >
-                                                    <Checkbox
-                                                        checked={expanded[idx]}
-                                                        tabIndex={-1}
-                                                        disableRipple
-                                                        onChange={() => handleExpansion(idx)} // Toggle the expansion state
-                                                    /> 
-                                                    <Typography>Title {idx + 1}</Typography>
-                                                </AccordionSummary>
-                                                <AccordionDetails>
-                                                    <Typography>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                                        malesuada lacus ex, sit amet blandit leo lobortis eget.
-                                                    </Typography>
-                                                </AccordionDetails>
-                                            </Accordion>
-                                              ))}
-                                    </Box>
-                                </Box>
-                            </Box>
-                        </Grid>
-
-                        <Grid item xs={12} md={6}>
-                            <Box sx={{ height: "45vh", display: "flex", flexDirection: "column" }}>
-                               <Box sx={{ display: "flex", justifyContent: "center", padding: "10px" }}>
-                                  <Typography variant='h4'>Your Calendar</Typography>
-                                </Box>
-                                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                    <DateCalendar 
-                                        defaultValue={dayjs()} //Provide a default value for the calendar
-                                        views={['year', 'month', 'day']} //Include the views you want to display
-                                        sx={{ height: "100%", width: "100%" }}
-                                    />
-                                </LocalizationProvider>
-                            </Box>
-                        </Grid>
-                            <Grid item xs={12} md={6} sx={{ height: "45vh", overflowY: "auto", scrollbarColor: mode === "dark" ? "#29AB87 #A2F3D1" : "#A2F3D1 #29AB87", scrollbarWidth: "thin", }}>
-                            <Box sx={{ display: "flex", flexDirection: "column", }}>
-                            <Box sx={{ display: "flex", justifyContent: "center", mt: 2}}>
-                                <Typography variant='h4'>Based on Your Interest</Typography>
-                            </Box>       
-                             <Box sx={{ display: "flex", flexDirection: "column", }}> 
-                            {Array.from({ length: Math.ceil(data.length / 3) }).map((_, rowIndx) => {
-                                return (
-                                    <Grid container wrap="nowrap" spacing={2} padding={2}>
-                                        {[0, 1, 2].map((colIndx) => { 
-                                            const dataIndx = colIndx * 3 + rowIndx;
-                                            const item = data[dataIndx];
-                                            return (
-                                                <Grid item key={dataIndx}>
-                                                    <Card sx={{ width: 210, marginRight: 0.5, my: 5 }}>
-                                                        {item ? (
-                                                            <img
-                                                                style={{ width: 210, height: 118 }}
-                                                                alt={item.title}
-                                                                src={item.src}
-                                                            />
-                                                        ) : (
-                                                            <Skeleton variant="rectangular" width={210} height={118} />
-                                                        )}
-                                                        {item ? (
-                                                            <Box sx={{ pr: 2 }}>
-                                                                <Typography gutterBottom variant="body2">
-                                                                    {item.title}
-                                                                </Typography>
-                                                                <Typography display="block" variant="caption" color="text.secondary">
-                                                                    {item.channel}
-                                                                </Typography>
-                                                                <Typography variant="caption" color="text.secondary">
-                                                                    {`${item.views} • ${item.createdAt}`}
-                                                                </Typography>
-                                                            </Box>
-                                                        ) : (
-                                                            <Box sx={{ pt: 0.5 }}>
-                                                                <Skeleton />
-                                                                <Skeleton width="60%" />
-                                                            </Box>
-                                                        )}
-                                                    </Card>
-                                                </Grid>
-                                            );
-                                        })}
-                                    </Grid>
-                                );
-                            })}
-                            </Box>
-                        </Box>
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <Box sx={{ height: "45vh", display: "flex", flexDirection: "column", }}>
-                              <Box sx={{ display: "flex", justifyContent: "center", padding: "5px" }}>
-                                <Typography variant='h4'>History Glossory</Typography>
-                               </Box> 
-                                    <Paper sx={{ width: '100%', overflow: 'hidden', }}>
-                                        <TableContainer sx={{ maxHeight: 440, scrollbarColor: mode === "dark" ? "#29AB87 #A2F3D1" : "#A2F3D1 #29AB87", scrollbarWidth: "thin", }}>
-                                            <Table stickyHeader aria-label="sticky table">
-                                                <TableHead>
-                                                    <TableRow>
-                                                        {columns.map((column) => (
-                                                            <TableCell
-                                                                key={column.id}
-                                                                align={column.align}
-                                                                style={{ minWidth: column.minWidth }}
-                                                            >
-                                                                {column.label}
-                                                            </TableCell>
-                                                        ))}
-                                                    </TableRow>
-                                                </TableHead>
-                                                <TableBody>
-                                                    {rows
-                                                        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                                        .map((row) => {
-                                                            return (
-                                                                <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                                                                    {columns.map((column) => {
-                                                                        const value = row[column.id];
-                                                                        return (
-                                                                            <TableCell key={column.id} align={column.align}>
-                                                                                {column.format && typeof value === 'number'
-                                                                                    ? column.format(value)
-                                                                                    : value}
-                                                                            </TableCell>
-                                                                        );
-                                                                    })}
-                                                                </TableRow>
-                                                            );
-                                                        })}
-                                                </TableBody>
-                                            </Table>
-                                        </TableContainer>
-                                        <TablePagination
-                                            rowsPerPageOptions={[10, 25, 100]}
-                                            component="div"
-                                            count={rows.length}
-                                            rowsPerPage={rowsPerPage}
-                                            page={page}
-                                            onPageChange={handleChangePage}
-                                            onRowsPerPageChange={handleChangeRowsPerPage}
-                                        />
-                                    </Paper>
-                            </Box>
-                        </Grid>
-
-                    </Grid>
-                </Grid>
-            </Grid>
-        </Container>
+           <PageLayout 
+                mode={mode}
+                userType='consumer'
+                loading={loading}
+                messages={messages}
+                buttonsData={buttonsData}
+                snackbarState={snackbarState}
+                newMessageState={{ Active: true, message: newMessage }}
+                titleBox='User Account:'
+                titleBox1='Your Calendar:'
+                titleBox2='News Feed:'
+                titleBox4='Based On Your Interests:'
+                titleBox6='Messages InBox:'
+                titleBox7='Send Message:'
+                titleBox8='UserAccount:'
+                titleBox9='Purchases:'
+                includeTitleBox={true}
+                includeTitleBox1={true}
+                includeTitleBox2={true}
+                includeTitleBox4={true}
+                includeTitleBox6={true}
+                includeTitleBox7={true}
+                includeTitleBox8={true}
+                includeTitleBox9={true}
+                includeMessages={true}
+                includeUserPicture={true}
+                includeButtonsActions={true}
+                includeUserCalendar={true}
+                includeUserPurchaseHistory={true}
+                includeNewsFeed={true}
+                includeBasedOnUserInterest={true}
+                handleMessageSend={handleSendMessage}
+                handleNewMessage={(message: string) => handleNewMessage({ Active: true, message })}
+                handleMessageDelete={(message: string) => handleMessageDelete(message)}
+                handleSnackbarClosed={handleSnackbarClose}
+                includeSnackbarPopup={true}
+           />
         </>
     );
 }

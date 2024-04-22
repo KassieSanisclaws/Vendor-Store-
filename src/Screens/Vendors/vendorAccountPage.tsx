@@ -3,7 +3,7 @@ import { useThemeMode } from '../../main';
 import { Box, Stack, CircularProgress, AlertColor } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
 import PageLayout from '../../Components/Page-Layout/pageLayout';
-import { ButtonData, ReviewData, PieGraphData, RowData } from '../../Components/Page-Layout/pageLayout';
+import { ButtonData, ReviewData, PieGraphData, RowData } from '../../Types/typeInterface';
 
 function vendorAccountPage() {
   const { mode } = useThemeMode();

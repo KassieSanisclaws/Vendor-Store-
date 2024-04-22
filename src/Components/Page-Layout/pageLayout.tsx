@@ -3,107 +3,23 @@ import { Link } from 'react-router-dom';
 import { useThemeMode } from '../../main';
 import { Container, Grid, Box, Typography, List, ListItem, ListItemText, IconButton, TextField, Divider, ListItemAvatar, Avatar, Button, Rating, AlertColor, Alert, Snackbar,
          Card, Skeleton, Accordion, AccordionSummary, AccordionDetails, Checkbox, AccordionSlots, Fade, Paper, Table, TableBody, TableCell, TableContainer, TableHead, 
-         TableRow, TablePagination
+         TableRow, TablePagination, ImageList, ImageListItem, ListSubheader, ImageListItemBar, 
  } from '@mui/material';
-import { Send, Delete, ExpandMore } from '@mui/icons-material';
+import { Send, Delete, ExpandMore,  } from '@mui/icons-material';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { PieChart, pieArcLabelClasses } from '@mui/x-charts/PieChart';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { DataGrid } from '@mui/x-data-grid';
 import { styled } from '@mui/system';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
+import { CarouselComponent } from '../Carousel/carousel';
+import InfoIcon from '@mui/icons-material/Info';
+import { ColumnHistory, Data, UsersLayoutData, } from '../../Types/typeInterface';
+import { VideoPlayer } from '../VideoPlayer/videoPlayer';
+import { DisplayPicture } from '../DisplayPicture/displayPicture';
 
-export interface ButtonData {
-    name: string;
-    to?: string;
-    onClick: (e?: any) => void;
-}
-
-export interface ReviewData {
-    name: string;
-    avatarSrc: string;
-    title: string;
-    reviewer: string;
-    comment: string;
-    rating: number;
-}
-
-export interface PieGraphData {
-    value: number;
-    label: string;
-    width: number;
-    height: number;
-}
-
-export interface RowData {
-    id: number;
-    lastName: string;
-    firstName: string;
-    age: number | null;
-}
-
-export interface UsersLayoutData {
-    mode: string;
-    loading?: boolean;
-    messages?: string[];
-    newMessageState?: {
-        Active: boolean;
-        message: string;
-    }
-    snackbarState?: {
-        active: boolean;
-        severity: AlertColor;
-        message: string;
-    }
-    newsFeedExpandedState?: boolean[];
-    titleBox?: string;
-    titleBox1?: string;
-    titleBox2?: string;
-    titleBox3?: string;
-    titleBox4?: string;
-    titleBox5?: string;
-    titleBox6?: string;
-    titleBox7?: string;
-    titleBox8?: string;
-    titleBox9?: string;
-    titleBox10?: string;
-    userType: "admin" | "vendor" | "consumer";
-
-    includeAdditionalActions?: boolean;
-    includeAdminActions?: boolean;
-    includeUserPicture?: boolean;
-    includeNewsFeed?: boolean;
-    includeMessages?: boolean;
-    includeBasedOnUserInterest?: boolean;
-    includeUserCalendar?: boolean;
-    includeUserPurchaseHistory?: boolean;
-    includeStoreReviews?: boolean;
-    includeButtonsActions?: boolean;
-    includeVendorEmployeesTable?: boolean;
-    includeSnackbarPopup?: boolean;
-    includePieGraph?: boolean;
-    includeBarGraph?: boolean;
-    includeTitleBox?: boolean;
-    includeTitleBox1?: boolean;
-    includeTitleBox2?: boolean;
-    includeTitleBox4?: boolean;
-    includeTitleBox6?: boolean;
-    includeTitleBox7?: boolean;
-    includeTitleBox8?: boolean;
-    includeTitleBox9?: boolean;
-    handleMessageSend?: () => void;
-    handleNewMessage?: (message: string) => void;
-    handleMessageDelete?: (message: string) => void;
-    handleSnackbarClosed?: () => void;
-    handleExpansion?: (idx: number) => void;
-    data: PieGraphData[];
-    columns: GridColDef[];
-    rows: RowData[];
-    buttonsData: ButtonData[];
-    reviews: ReviewData[];
-}
 
 const CustomIconHoverStyle = styled(IconButton)(({ theme }) => ({
     '&:hover': {
@@ -112,14 +28,6 @@ const CustomIconHoverStyle = styled(IconButton)(({ theme }) => ({
         }
       }
   }));
-
-interface ColumnHistory {
-    id: 'name' | 'code' | 'population' | 'size' | 'density';
-    label: string;
-    minWidth?: number;
-    align?: 'right';
-    format?: (value: number) => string;
-}
 
 const columnsHistory: readonly ColumnHistory[] = [
     { id: 'name', label: 'Name', minWidth: 170 },
@@ -146,14 +54,6 @@ const columnsHistory: readonly ColumnHistory[] = [
         format: (value: number) => value.toFixed(2),
     },
 ];
-
-interface Data {
-    name: string;
-    code: string;
-    population: number;
-    size: number;
-    density: number;
-}
 
 function createData(
         name: string,
@@ -183,6 +83,80 @@ function createData(
         createData('Brazil', 'BR', 210147125, 8515767),
     ];
 
+const itemData = [
+    {
+        img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
+        title: 'Breakfast',
+        author: '@bkristastucchio',
+        rows: 2,
+        cols: 2,
+        featured: true,
+    },
+    {
+        img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
+        title: 'Burger',
+        author: '@rollelflex_graphy726',
+    },
+    {
+        img: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
+        title: 'Camera',
+        author: '@helloimnik',
+    },
+    {
+        img: 'https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c',
+        title: 'Coffee',
+        author: '@nolanissac',
+        cols: 2,
+    },
+    {
+        img: 'https://images.unsplash.com/photo-1533827432537-70133748f5c8',
+        title: 'Hats',
+        author: '@hjrc33',
+        cols: 2,
+    },
+    {
+        img: 'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62',
+        title: 'Honey',
+        author: '@arwinneil',
+        rows: 2,
+        cols: 2,
+        featured: true,
+    },
+    {
+        img: 'https://images.unsplash.com/photo-1516802273409-68526ee1bdd6',
+        title: 'Basketball',
+        author: '@tjdragotta',
+    },
+    {
+        img: 'https://images.unsplash.com/photo-1518756131217-31eb79b20e8f',
+        title: 'Fern',
+        author: '@katie_wasserman',
+    },
+    {
+        img: 'https://images.unsplash.com/photo-1597645587822-e99fa5d45d25',
+        title: 'Mushrooms',
+        author: '@silverdalex',
+        rows: 2,
+        cols: 2,
+    },
+    {
+        img: 'https://images.unsplash.com/photo-1567306301408-9b74779a11af',
+        title: 'Tomato basil',
+        author: '@shelleypauls',
+    },
+    {
+        img: 'https://images.unsplash.com/photo-1471357674240-e1a485acb3e1',
+        title: 'Sea star',
+        author: '@peterlaster',
+    },
+    {
+        img: 'https://images.unsplash.com/photo-1589118949245-7d38baf380d6',
+        title: 'Bike',
+        author: '@southside_customs',
+        cols: 2,
+    },
+];
+
 function PageLayout({
     data,
     columns,
@@ -198,14 +172,15 @@ function PageLayout({
     titleBox,
     titleBox1,
     titleBox2,
-    titleBox3,
     titleBox4,
-    titleBox5,
     titleBox6,
     titleBox7,
     titleBox8,
     titleBox9,
     titleBox10,
+    videoUrl,
+    userImageUrl,
+    userImgSize,
     includeTitleBox = false,
     includeTitleBox1 = false,
     includeTitleBox2 = false,
@@ -228,6 +203,13 @@ function PageLayout({
     includeBasedOnUserInterest = false,
     includeVendorEmployeesTable = false,
     includeSnackbarPopup = false,
+    includeAboutUsPicture1 = false,
+    includeAboutUsPicture2 = false,
+    includeAboutUsCarousel = false,
+    includeAboutUsSearchTable = false,
+    includeAboutUsTopSellers = false,
+    includeAboutUsMediaVideo = false,
+    aboutUsCarouselImages,
     handleMessageSend,
     handleNewMessage,
     handleMessageDelete,
@@ -301,7 +283,13 @@ function PageLayout({
         },
     ];
 
-    
+    function srcset(image: string, size: number, rows = 1, cols = 1) {
+        return {
+            src: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format`,
+            srcSet: `${image}?w=${size * cols}&h=${size * rows
+                }&fit=crop&auto=format&dpr=2 2x`,
+        };
+    }
 
     return (
         <Grid container spacing={2} mb={2} padding={4}>
@@ -314,11 +302,11 @@ function PageLayout({
                             overflow: "hidden",
                             borderRadius: "10px",
                             overflowY: "auto",
-                            scrollbarColor: mode === "dark" ? "#29AB87 #A2F3D1" : "#A2F3D1 #29AB87",
+                            scrollbarColor: mode === "dark" ? "#47008F #F5EBFF" : "#F5EBFF #47008F",
                             scrollbarWidth: "thin",
                         }}
                     >
-                        <Grid container columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{ display: "flex", justifyContent: "space-evenly", padding: "20px" }}>         
+                        <Grid container sx={{ display: "flex", justifyContent: "space-evenly", padding: "20px" }}>         
                             <Grid item sx={{ height: "100%", width: "100%", bgcolor: mode === "dark" ? "primary.light" : "primary.dark", borderRadius: "10px" }} xs={3.5}>
                                 {includeSnackbarPopup && (
                                     <Snackbar
@@ -343,7 +331,6 @@ function PageLayout({
                                     <Typography variant='h5'>{titleBox}</Typography>
                                 </Box>
                                 )}
-                                <Container sx={{ mb: 2 }}>
                                   {includeUserPicture && (
                                         <Box sx={{ bgcolor: "grey", width: "100%", height: '28vh', overflow: "hidden" }}>
                                             <img src="user-profile-picture-url" alt="User" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
@@ -352,7 +339,7 @@ function PageLayout({
                                     )}
                                     {includeButtonsActions && (
                                       <Box sx={{ display: "flex", flexDirection: "column", mt: 1 }}>
-                                        {buttonsData.map((button, indx) => (
+                                        {buttonsData?.map((button, indx) => (
                                             <React.Fragment key={indx}>
                                                 {('to' in button) && button.to ? (
                                                     <Link to={button.to} style={{ textDecoration: "none" }}>
@@ -368,8 +355,15 @@ function PageLayout({
                                             </React.Fragment>
                                         ))}
                                     </Box> 
-                                    )}         
-                                </Container>
+                                    )}
+                                    {includeAboutUsPicture1 && (
+                                        <Box sx={{ overflow: "hidden", height: "100%", width: "100%" }}>
+                                               <DisplayPicture 
+                                                       userImageUrl={userImageUrl ?? " "} 
+                                                       size={userImgSize as unknown as number} 
+                                                     />
+                                        </Box>
+                                      )}
                             </Grid>
                             <Grid item padding={1} sx={{ height: "100%", width: "100%", bgcolor: mode === "dark" ? "primary.light" : "primary.dark", borderRadius: "10px" }} xs={8}>
                                 {includeTitleBox1 && (
@@ -381,7 +375,7 @@ function PageLayout({
                                   <Box sx={{ height: 400, width: "100%" }}>
                                     <DataGrid
                                         rows={rows}
-                                        columns={columns}
+                                        columns={columns ? columns : []}
                                         initialState={{
                                             pagination: {
                                                 paginationModel: { page: 0, pageSize: 5 },
@@ -394,9 +388,6 @@ function PageLayout({
                                )} 
                             {includeUserCalendar && (
                                     <Box sx={{ height: "45vh", display: "flex", flexDirection: "column" }}>
-                                        <Box sx={{ display: "flex", justifyContent: "center", padding: "10px" }}>
-                                            <Typography variant='h4'>Your Calendar</Typography>
-                                        </Box>
                                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                                             <DateCalendar
                                                 defaultValue={dayjs()} //Provide a default value for the calendar
@@ -406,6 +397,11 @@ function PageLayout({
                                         </LocalizationProvider>
                                     </Box>
                                   )}
+                            {includeAboutUsCarousel && (
+                                <Box sx={{ overflow: "hidden", borderRadius: "10px" }}>
+                                    <CarouselComponent images={aboutUsCarouselImages?.map(image => image.img) ?? []}/>
+                                </Box>
+                            )}
                             </Grid>
                         </Grid>
                     </Box>
@@ -417,23 +413,21 @@ function PageLayout({
                             overflow: "hidden",
                             borderRadius: "10px",
                             overflowY: "auto",
-                            scrollbarColor: mode === "dark" ? "#29AB87 #A2F3D1" : "#A2F3D1 #29AB87",
+                            scrollbarColor: mode === "dark" ? "#47008F #F5EBFF" : "#F5EBFF #47008F",
                             scrollbarWidth: "thin",
                         }}
                     >
-                        <Grid container padding={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{ display: "flex", justifyContent: "space-evenly" }}>             
-                            <Grid item sx={{ height: "100%", width: "100%", bgcolor: mode === "dark" ? "primary.light" : "primary.dark", borderRadius: "10px" }} xs={12} sm={4.5}>
+                        <Grid container padding={2} sx={{ display: "flex", justifyContent: "space-evenly" }}>             
+                            <Grid item sx={{ height: "100%", width: "100%", bgcolor: mode === "dark" ? "primary.light" : "primary.dark", borderRadius: "10px" }} xs={12} sm={4}>
                                {includeTitleBox2 && (
                                  <Box sx={{ display: 'flex', justifyContent: "center", mt: 1 }}>
                                     <Typography variant='h5'>{titleBox2}</Typography>
                                 </Box>
                                )}
                                {includeNewsFeed && (
-                                    <Box sx={{ height: "100%", width: "100%" }}>
-                                        <Box sx={{ display: "flex", justifyContent: "center", padding: "5px" }}>
-                                            <Typography variant='h4'>{titleBox3}</Typography>
-                                        </Box>
-                                        {data.map((_, idx: number) => (
+                                   <Box sx={{ height: "100%", width: "100%", mb: 2 }}>
+                                     <Container sx={{ width: "100%", height: "100%" }}>
+                                        {dataSample.map((_, idx: number) => (
                                             <Accordion
                                                 key={idx}
                                                 expanded={newsFeedExpandedState[idx]}
@@ -444,8 +438,7 @@ function PageLayout({
                                                     '& .MuiAccordion-region': { height: newsFeedExpandedState ? 'auto' : 0 },
                                                     '& .MuiAccordionDetails-root': { display: newsFeedExpandedState ? 'block' : 'none' },
                                                 }}
-
-                                            >
+                                                >
                                                 <AccordionSummary
                                                     expandIcon={<ExpandMore />}
                                                     aria-controls={`panel${idx + 1}-content`}
@@ -467,6 +460,7 @@ function PageLayout({
                                                 </AccordionDetails>
                                             </Accordion>
                                         ))}
+                                    </Container>
                                     </Box>
                                )}
                                {includePieGraph && (
@@ -475,7 +469,7 @@ function PageLayout({
                                         {
                                             arcLabel: (item) => `${item.label} (${item.value})`,
                                             arcLabelMinAngle: 45,
-                                            data,
+                                            data: data || [],
                                         },
                                     ]}
                                     sx={{
@@ -486,9 +480,40 @@ function PageLayout({
                                     }}
                                     {...size}
                                 />
-                               )}          
+                               )}
+                              {includeAboutUsTopSellers && (
+                                       <Box sx={{ overflow: "hidden", width: "100%", height: "100%", padding: "20px" }}>
+                                        <ImageList>
+                                            <ImageListItem key="Subheader" cols={2}>
+                                                <ListSubheader component="div">December</ListSubheader>
+                                            </ImageListItem>
+                                            {itemData.map((item) => (
+                                                <ImageListItem key={item.img}>
+                                                    <img
+                                                        srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                                        src={`${item.img}?w=248&fit=crop&auto=format`}
+                                                        alt={item.title}
+                                                        loading="lazy"
+                                                    />
+                                                    <ImageListItemBar
+                                                        title={item.title}
+                                                        subtitle={item.author}
+                                                        actionIcon={
+                                                            <IconButton
+                                                                sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
+                                                                aria-label={`info about ${item.title}`}
+                                                            >
+                                                                <InfoIcon />
+                                                            </IconButton>
+                                                        }
+                                                    />
+                                                </ImageListItem>
+                                            ))}
+                                        </ImageList>
+                                </Box>
+                              )}          
                             </Grid>
-                            <Grid item sx={{ height: "100%", width: "100%", bgcolor: mode === "dark" ? "primary.light" : "primary.dark", borderRadius: "10px" }} xs={12} sm={6.5}>
+                            <Grid item sx={{ height: "100%", width: "100%", bgcolor: mode === "dark" ? "primary.light" : "primary.dark", borderRadius: "10px" }} xs={12} sm={7.5}>
                               {includeTitleBox4 && (
                                  <Box sx={{ display: 'flex', justifyContent: "center", mt: 1 }}>
                                     <Typography variant='h5'>{titleBox4}</Typography>
@@ -508,17 +533,13 @@ function PageLayout({
                                 />
                                )}
                                {includeBasedOnUserInterest && (
-                                    <Box sx={{ display: "flex", flexDirection: "column", }}>
-                                        <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
-                                            <Typography variant='h4'>{titleBox5}</Typography>
-                                        </Box>
-                                        <Box sx={{ display: "flex", flexDirection: "column", }}>
+                                    <Box sx={{ overflow: "auto", padding: "10px", ml: 1 }}>    
                                             {Array.from({ length: Math.ceil(dataSample.length / 3) }).map((_, rowIndx) => {
                                                 return (
-                                                    <Grid container wrap="nowrap" spacing={2} padding={2}>
+                                                    <Box sx={{ display: "flex", width: "100%", height: "100%" }}>
                                                         {[0, 1, 2].map((colIndx) => {
                                                             const dataIndx = colIndx * 3 + rowIndx;
-                                                            const item = data[dataIndx];
+                                                            const item = data?.[dataIndx];
                                                             return (
                                                                 <Grid item key={dataIndx}>
                                                                     <Card sx={{ width: 210, marginRight: 0.5, my: 5 }}>
@@ -553,11 +574,51 @@ function PageLayout({
                                                                 </Grid>
                                                             );
                                                         })}
-                                                    </Grid>
+                                                    </Box>
                                                 );
                                             })}
-                                        </Box>
                                     </Box>
+                               )}
+                               {includeAboutUsSearchTable && (
+                                <Box sx={{ width: "100%", height: "100%", padding: "10px" }}>
+                                    <TableContainer component={Paper}>
+                                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                                            <TableHead>
+                                                <TableRow>
+                                                    <TableCell>Dessert (100g serving)</TableCell>
+                                                    <TableCell align="right">Calories</TableCell>
+                                                    <TableCell align="right">Fat&nbsp;(g)</TableCell>
+                                                    <TableCell align="right">Carbs&nbsp;(g)</TableCell>
+                                                    <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                                                </TableRow>
+                                            </TableHead>
+                                            <TableBody>
+                                                {rowsHistory.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
+                                                    <TableRow
+                                                        key={row.name}
+                                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                    >
+                                                        <TableCell component="th" scope="row">
+                                                            {row.name}
+                                                        </TableCell>
+                                                        <TableCell align="right">{row.population}</TableCell>
+                                                        <TableCell align="right">{row.size}</TableCell>
+                                                        <TableCell align="right">{row.density}</TableCell>
+                                                    </TableRow>
+                                                ))}
+                                            </TableBody>
+                                        </Table>
+                                    </TableContainer>
+                                    <TablePagination
+                                        rowsPerPageOptions={[5, 10, 25]}
+                                        component="div"
+                                        count={rowsHistory.length}
+                                        rowsPerPage={rowsPerPage}
+                                        page={page}
+                                        onPageChange={handleChangePage}
+                                        onRowsPerPageChange={handleChangeRowsPerPage}
+                                    />
+                                </Box>
                                )}   
                             </Grid>
                         </Grid>
@@ -572,13 +633,13 @@ function PageLayout({
                         overflow: "hidden",
                         borderRadius: "10px",
                         overflowY: "auto",
-                        scrollbarColor: mode === "dark" ? "#29AB87 #A2F3D1" : "#A2F3D1 #29AB87",
+                        scrollbarColor: mode === "dark" ? "#47008F #F5EBFF" : "#F5EBFF #47008F",
                         scrollbarWidth: "thin",
                     }}
                 >
                     <Grid container rowSpacing={1}>
                         <Grid item sx={{ height: "100%", width: "100%" }} padding={1}>
-                            <Grid container spacing={1} mb={2} padding={1}>
+                            <Grid container spacing={1} mb={2}>
                                 <Grid item xs={8}>          
                                     <Box
                                         sx={{
@@ -587,9 +648,9 @@ function PageLayout({
                                             overflow: "hidden",
                                             borderRadius: "10px",
                                             overflowY: "auto",
-                                            scrollbarColor: mode === "dark" ? "#29AB87 #A2F3D1" : "#A2F3D1 #29AB87",
+                                            scrollbarColor: mode === "dark" ? "#47008F #F5EBFF" : "#F5EBFF #47008F",
                                             scrollbarWidth: "thin",
-                                            mt: 1
+                                            mt: 1,
                                         }}
                                     >
                                    {includeTitleBox6 && (
@@ -597,7 +658,8 @@ function PageLayout({
                                           <Typography variant='h5'>{titleBox6}</Typography>
                                        </Box>
                                      )} 
-                                      <List>
+                                     {includeMessages && (
+                                        <List>
                                           {(messages && messages.length > 0) ? ( 
                                               messages.map((message, index) => (
                                                 <ListItem key={index}>
@@ -617,6 +679,27 @@ function PageLayout({
                                             </ListItem>
                                         )}
                                         </List>
+                                     )}
+                                     {includeAboutUsPicture2 && (
+                                        <Box sx={{ height: "100%", width: "100%", padding: "10px" }}>
+                                                <ImageList
+                                                    sx={{ borderRadius: "10px" }}
+                                                    variant="quilted"
+                                                    cols={4}
+                                                    rowHeight={121}
+                                                >
+                                                    {itemData.map((item) => (
+                                                        <ImageListItem key={item.img} cols={item.cols || 1} rows={item.rows || 1}>
+                                                            <img
+                                                                {...srcset(item.img, 121, item.rows, item.cols)}
+                                                                alt={item.title}
+                                                                loading="lazy"
+                                                            />
+                                                        </ImageListItem>
+                                                    ))}
+                                                </ImageList>
+                                        </Box>
+                                            )}   
                                     </Box>
                                 </Grid>
                             
@@ -628,7 +711,7 @@ function PageLayout({
                                             overflow: "hidden",
                                             borderRadius: "10px",
                                             overflowY: "auto",
-                                            scrollbarColor: mode === "dark" ? "#29AB87 #A2F3D1" : "#A2F3D1 #29AB87",
+                                            scrollbarColor: mode === "dark" ? "#47008F #F5EBFF" : "#F5EBFF #47008F",
                                             scrollbarWidth: "thin",
                                             mt: 1
                                         }}
@@ -638,10 +721,8 @@ function PageLayout({
                                           <Typography variant='h5'>{titleBox7}</Typography>
                                         </Box>
                                       )}   
-                                      <Container>
                                         {includeMessages && (
-                                            <Grid container xs={8} md={12}>
-                                            {/* <Box sx={{ position: "relative", top: 157, left: "95px", overflow: "hidden" }}> */}
+                                            <Grid container xs={8} md={12} padding={1}>
                                             <IconButton 
                                                 onClick={handleMessageSend} 
                                                 aria-label="send"
@@ -649,8 +730,7 @@ function PageLayout({
                                             >
                                                 <Send />
                                             </IconButton>
-                                            {/* </Box> */}
-                                            <Box sx={{ position: "relative", top: "-40px" }}>
+                                            <Box sx={{ position: "relative", top: "-50px" }}>
                                                 <TextField
                                                 label="New Message"
                                                 variant="outlined"
@@ -661,7 +741,11 @@ function PageLayout({
                                             </Box>        
                                           </Grid>
                                         )}
-                                    </Container>
+                                        {includeAboutUsMediaVideo && (
+                                            <Box sx={{ width: '100%', height: "100%", padding: "10px", }}>
+                                                <VideoPlayer videoUrl={videoUrl ?? ''} />
+                                            </Box>      
+                                        )}
                                   </Box>
                                 {includeAdditionalActions && (
                                         <Box 
@@ -671,7 +755,7 @@ function PageLayout({
                                               overflow: "hidden",
                                               borderRadius: "10px",
                                               overflowY: "auto",
-                                              scrollbarColor: mode === "dark" ? "#29AB87 #A2F3D1" : "#A2F3D1 #29AB87",
+                                              scrollbarColor: mode === "dark" ? "#47008F #F5EBFF" : "#F5EBFF #47008F",
                                               scrollbarWidth: "thin",
                                               mt: 1
                                            }}
@@ -700,7 +784,7 @@ function PageLayout({
                                     overflow: "hidden",
                                     borderRadius: "10px",
                                     overflowY: "auto",
-                                    scrollbarColor: mode === "dark" ? "#29AB87 #A2F3D1" : "#A2F3D1 #29AB87",
+                                    scrollbarColor: mode === "dark" ? "#47008F #F5EBFF" : "#F5EBFF #47008F",
                                     scrollbarWidth: "thin",
                                     mt: 1
                                 }}
@@ -713,7 +797,7 @@ function PageLayout({
                                 )}
                             {includeStoreReviews && (
                                 <List sx={{ width: '100%', }}>
-                                    {reviews.map((review, indx) => (
+                                    {reviews?.map((review, indx) => (
                                         <React.Fragment key={indx}>
                                             <ListItem alignItems="flex-start">
                                                 <ListItemAvatar>
@@ -749,7 +833,7 @@ function PageLayout({
                                                     <Typography variant='h4'>{titleBox10}</Typography>
                                                 </Box>
                                                 <Paper sx={{ width: '100%', overflow: 'hidden', }}>
-                                                    <TableContainer sx={{ maxHeight: 440, scrollbarColor: mode === "dark" ? "#29AB87 #A2F3D1" : "#A2F3D1 #29AB87", scrollbarWidth: "thin", }}>
+                                                <TableContainer sx={{ maxHeight: 440, scrollbarColor: mode === "dark" ? "#47008F #F5EBFF" : "#F5EBFF #47008F", scrollbarWidth: "thin", }}>
                                                         <Table stickyHeader aria-label="sticky table">
                                                             <TableHead>
                                                                 <TableRow>
@@ -789,7 +873,7 @@ function PageLayout({
                                                     <TablePagination
                                                         rowsPerPageOptions={[10, 25, 100]}
                                                         component="div"
-                                                        count={rows.length}
+                                                        count={rows?.length ?? 0}
                                                         rowsPerPage={rowsPerPage}
                                                         page={page}
                                                         onPageChange={handleChangePage}

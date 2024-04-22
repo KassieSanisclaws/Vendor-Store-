@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useThemeMode } from '../main';
 import PageLayout from '../Components/Page-Layout/pageLayout';
-import { ButtonData, ReviewData, PieGraphData, RowData } from '../Components/Page-Layout/pageLayout';
+import { ButtonData, ReviewData, PieGraphData, RowData } from '../Types/typeInterface';
 import { Box, CircularProgress, Stack } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
 
@@ -76,6 +76,80 @@ export const About = () => {
         { name: 'Cindy Baker', avatarSrc: '/static/images/avatar/3.jpg', title: 'Oui Oui', reviewer: 'Sandra Adams', comment: 'Do you have Paris recommendations? Have you ever…', rating: 5 },
     ];
 
+    const itemData = [
+        {
+            img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
+            title: 'Breakfast',
+            author: '@bkristastucchio',
+            rows: 2,
+            cols: 2,
+            featured: true,
+        },
+        {
+            img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
+            title: 'Burger',
+            author: '@rollelflex_graphy726',
+        },
+        {
+            img: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
+            title: 'Camera',
+            author: '@helloimnik',
+        },
+        {
+            img: 'https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c',
+            title: 'Coffee',
+            author: '@nolanissac',
+            cols: 2,
+        },
+        {
+            img: 'https://images.unsplash.com/photo-1533827432537-70133748f5c8',
+            title: 'Hats',
+            author: '@hjrc33',
+            cols: 2,
+        },
+        {
+            img: 'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62',
+            title: 'Honey',
+            author: '@arwinneil',
+            rows: 2,
+            cols: 2,
+            featured: true,
+        },
+        {
+            img: 'https://images.unsplash.com/photo-1516802273409-68526ee1bdd6',
+            title: 'Basketball',
+            author: '@tjdragotta',
+        },
+        {
+            img: 'https://images.unsplash.com/photo-1518756131217-31eb79b20e8f',
+            title: 'Fern',
+            author: '@katie_wasserman',
+        },
+        {
+            img: 'https://images.unsplash.com/photo-1597645587822-e99fa5d45d25',
+            title: 'Mushrooms',
+            author: '@silverdalex',
+            rows: 2,
+            cols: 2,
+        },
+        {
+            img: 'https://images.unsplash.com/photo-1567306301408-9b74779a11af',
+            title: 'Tomato basil',
+            author: '@shelleypauls',
+        },
+        {
+            img: 'https://images.unsplash.com/photo-1471357674240-e1a485acb3e1',
+            title: 'Sea star',
+            author: '@peterlaster',
+        },
+        {
+            img: 'https://images.unsplash.com/photo-1589118949245-7d38baf380d6',
+            title: 'Bike',
+            author: '@southside_customs',
+            cols: 2,
+        },
+    ];
+
     useEffect(() => {
         const timer = setTimeout(() => {
             setLoading(false);
@@ -108,33 +182,26 @@ export const About = () => {
          <PageLayout 
               mode={mode}
               loading={loading} 
-              userTypes='consumer'
-              data={[]} 
-              columns={[]} 
-              rows={[]} 
+              userType='consumer'
               buttonsData={buttonsData} 
-              reviews={[]}
-              titleBox1='About Us'
-              titleBox2='Store Items'
-              titleBox3='Store Greetings'
-              titleBox4='Store Reviews'
-              titleBox5='Store Statistics'
-              titleBox6='Store Profile'
-              titleBox7='Store Settings'
-              includeTitleBox1={true}
+              reviews={reviews}
+              titleBox2='About Items'
+              titleBox4='About Reviews'
+              titleBox9='About Store Items'
               includeTitleBox2={true}
-              includeTitleBox3={true}
               includeTitleBox4={true}
-              includeTitleBox5={true}
-              includeTitleBox6={true}
-              includeTitleBox7={true} 
-              includeStoreReviews={true}
-              includeBarGraph={true}
-              includePieGraph={true} 
-              includeVendorEmployeesTable={true}
-              includeMessages={true} 
-              includeButtonsActions={true}          
-        
+              includeTitleBox9={true}
+              includeStoreReviews={true}  
+              includeAboutUsSearchTable={true}
+              includeAboutUsPicture1={true}
+              includeAboutUsPicture2={true}
+              includeAboutUsCarousel={true}
+              includeAboutUsTopSellers={true}
+              includeAboutUsMediaVideo={true}
+              aboutUsCarouselImages={itemData} 
+              videoUrl={'https://www.youtube.com/watch?v=ysz5S6PUM-U'}
+              userImageUrl='https://images.unsplash.com/photo-1516802273409-68526ee1bdd6'
+              userImgSize={400} 
         />
      </>
     )
