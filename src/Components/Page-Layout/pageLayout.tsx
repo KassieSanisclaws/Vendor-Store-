@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useThemeMode } from '../../main';
-import { Container, Grid, Box, Typography, List, ListItem, ListItemText, IconButton, TextField, Divider, ListItemAvatar, Avatar, Button, Rating, AlertColor, Alert, Snackbar,
+import { Container, Grid, Box, Typography, List, ListItem, ListItemText, IconButton, TextField, Divider, ListItemAvatar, Avatar, Button, Rating, Alert, Snackbar,
          Card, Skeleton, Accordion, AccordionSummary, AccordionDetails, Checkbox, AccordionSlots, Fade, Paper, Table, TableBody, TableCell, TableContainer, TableHead, 
          TableRow, TablePagination, ImageList, ImageListItem, ListSubheader, ImageListItemBar, 
  } from '@mui/material';
@@ -16,9 +16,18 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import { CarouselComponent } from '../Carousel/carousel';
 import InfoIcon from '@mui/icons-material/Info';
-import { ColumnHistory, Data, UsersLayoutData, } from '../../Types/typeInterface';
+import { ColumnHistory, Data, UsersLayoutData,  } from '../../Types/typeInterface';
 import { VideoPlayer } from '../VideoPlayer/videoPlayer';
 import { DisplayPicture } from '../DisplayPicture/displayPicture';
+import SampleAccordion from '../Accordion/sampleAccordion';
+import { BaseTable } from '../Table/baseTable';
+import { BaseTableTwo } from '../Table/baseTableTwo';
+import TabComponent from '../Tabs/tabComponent';
+import { TestAccordion } from '../Accordion/testAccordion';
+import { TestAccordionTwo } from '../Accordion/testAccordionTwo';
+import { TablePage } from '../Table/tablePage';
+import TabComponentTwo  from '../Tabs/tabComponentTwo';
+import VerticalTabs from '../Tabs/verticalTabs';
 
 
 const CustomIconHoverStyle = styled(IconButton)(({ theme }) => ({
@@ -157,6 +166,58 @@ const itemData = [
     },
 ];
 
+
+    const myComponentList = [
+        {
+            name: 'Component1',
+            component: SampleAccordion,
+            label: 'Component 1',
+        },
+        {
+            name: 'Component2',
+            component: TestAccordion,
+            label: 'Component 2',
+        },
+        {
+            name: 'Component3',
+            component: TestAccordionTwo,
+            label: 'Component 3',
+        },
+        {
+            name: 'Component4',
+            component: SampleAccordion,
+            label: 'Component 4',
+        }
+        // Add more as needed
+    ];
+
+    const myComponentListTwo = [
+        {
+            name: 'Component1',
+            component: TestAccordionTwo,
+            label: 'Component 1',
+            customProp: 'Custom Prop 1',
+        },
+        {
+            name: 'Component2',
+            component: SampleAccordion,
+            label: 'Component 2',
+            customProp: 'Custom Prop 2',
+        },
+        {
+            name: 'Component3',
+            component: TablePage,
+            label: 'Component 3',
+        },
+        {
+            name: 'Component4',
+            component: SampleAccordion,
+            label: 'Component 4',
+            customProp: 'Custom Prop 4',
+        }
+        // Add more as needed
+    ];
+
 function PageLayout({
     data,
     columns,
@@ -209,19 +270,35 @@ function PageLayout({
     includeAboutUsSearchTable = false,
     includeAboutUsTopSellers = false,
     includeAboutUsMediaVideo = false,
+    includeAdminTableActions = false,
+    includeAdminVendorTables = false,
     aboutUsCarouselImages,
+    includeAdminTables = false,
+    includeAdminTabPanel = false,
     handleMessageSend,
     handleNewMessage,
     handleMessageDelete,
     handleSnackbarClosed,
     handleExpansion,
-    
-    
-
 }: UsersLayoutData){
     const { mode } = useThemeMode();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [isLoading, setIsLoading] = React.useState(false);
+
+    // const { values, handleChange } = useFormik({
+    //     initialValues: {
+    //         priceScheme: null,
+    //         premium: null,
+    //     },
+    //     onSubmit: (values) => console.log(values),
+    // });
+
+    const tabs = [
+    { label: <Typography variant="h6">Tab1</Typography>, component: <SampleAccordion /> },
+    { label: <Typography variant="h6">Tab2</Typography>, component: <BaseTable columns={columnsHistory as ColumnHistory[]}  rows={rowsHistory} isLoading={isLoading} /> },
+    { label: <Typography variant="h6">Tab3</Typography>, component: <TestAccordion /> },
+    ]; 
 
     const handleChangePage = (e: any, newPage: number) => {
         e.preventDefault();
@@ -402,6 +479,21 @@ function PageLayout({
                                     <CarouselComponent images={aboutUsCarouselImages?.map(image => image.img) ?? []}/>
                                 </Box>
                             )}
+                            {includeAdminTableActions && (
+                                <Box sx={{ overflow: "hidden", borderRadius: "10px" }}>
+                                       <TabComponent 
+                                             tabs={myComponentListTwo}
+                                             activatedTab={myComponentListTwo[0].name}
+                                            onTabChange={(componentName: string) => console.log(componentName)}
+                                        />
+                                            {/* <BaseTable 
+                                               columns={columnsHistory as ColumnHistory[]}
+                                               isLoading={loading}
+                                               rows={rowsHistory}
+                                            /> */}
+                                       
+                                </Box>
+                            )}
                             </Grid>
                         </Grid>
                     </Box>
@@ -511,6 +603,11 @@ function PageLayout({
                                             ))}
                                         </ImageList>
                                 </Box>
+                              )}
+                              {includeAdminTabPanel && (
+                                <Box sx={{ overflow: "hidden", width: "100%", height: "100%", padding: "20px" }}>
+                                    <TabComponentTwo  tabs={tabs} />
+                                </Box>
                               )}          
                             </Grid>
                             <Grid item sx={{ height: "100%", width: "100%", bgcolor: mode === "dark" ? "primary.light" : "primary.dark", borderRadius: "10px" }} xs={12} sm={7.5}>
@@ -619,7 +716,16 @@ function PageLayout({
                                         onRowsPerPageChange={handleChangeRowsPerPage}
                                     />
                                 </Box>
-                               )}   
+                               )} 
+                               {includeAdminTables && (
+                                <Box sx={{ height: "100%", width: "100%" }}>
+                                    <BaseTableTwo
+                                        columns={columnsHistory as ColumnHistory[]} 
+                                        isLoading={loading}
+                                        rows={rowsHistory}
+                                    />
+                                </Box>
+                               )}  
                             </Grid>
                         </Grid>
                     </Box>
@@ -766,8 +872,8 @@ function PageLayout({
                                         </Box>
                                       )}
                                      {includeAdminActions && (
-                                        <Box>
-                                           <Typography variant='h6'>Admin Actions</Typography>
+                                        <Box sx={{ height: "100%", width: "100%", padding: "10px", mb: 2 }}>
+                                            <VerticalTabs />
                                         </Box>
                                      )}
                                      </Box>
@@ -882,6 +988,16 @@ function PageLayout({
                                                 </Paper>
                                             </Box>
                                       )}
+                                    {includeAdminVendorTables && (
+                                        <Box sx={{ height: "100%", width: "100%"  }}> 
+                                                 <TabComponent
+                                                             tabs={myComponentList} 
+                                                             activatedTab={''} 
+                                                             onTabChange={function (): void {
+                                                                throw new Error('Function not implemented.');
+                                                        } }                                             />
+                                        </Box>
+                                    )}
                                </Container>
                             </Box>
                         </Grid>

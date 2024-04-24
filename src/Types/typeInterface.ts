@@ -59,6 +59,7 @@ export interface UsersLayoutData {
   userImgSize?: number;
   videoUrl?: string;
 
+  includeAdminTableActions?: boolean;
   includeAdditionalActions?: boolean;
   includeAdminActions?: boolean;
   includeUserPicture?: boolean;
@@ -87,6 +88,9 @@ export interface UsersLayoutData {
   includeAboutUsSearchTable?: boolean;
   includeAboutUsTopSellers?: boolean;
   includeAboutUsMediaVideo?: boolean;
+  includeAdminTables?: boolean;
+  includeAdminVendorTables?: boolean;
+  includeAdminTabPanel?: boolean;
   aboutUsCarouselImages?: Array<{
     img: string;
     title: string;
@@ -121,4 +125,39 @@ export interface Data {
   population: number;
   size: number;
   density: number;
+}
+
+export interface TableProps {
+  getRowId?: (row: any) => string;
+  showSelectAll?: boolean;
+  showSelectionColumn?: boolean;
+  selectionByRow?: boolean;
+  highLightSelection?: boolean;
+  sorting?: boolean;
+  onSortingChange?: (sorting: boolean) => void;
+  filters?: boolean;
+  onFiltersChange?: (filters: boolean) => void;
+  onFiltersClear?: () => void;
+  columns?: ColumnHistory[];
+  onColumnsChange?: (columns: ColumnHistory[]) => void;
+  columnOrder?: string[];
+  onColumnOrderChange?: (columnOrder: string[]) => void;
+  columnWidths?: { [key: string]: number };
+  onColumnWidthChange?: (columnWidths: { [key: string]: number }) => void;
+  hiddenColumns?: string[];
+  onHiddenColumnsChange?: (hiddenColumns: string[]) => void;
+  selection?: boolean;
+  onSelectionChange?: (selection: boolean) => void;
+  pagination?: boolean;
+  onPaginationPageChange?: (page: number) => void;
+  onPaginationSizeChange?: (size: number) => void;
+  search?: boolean;
+  onSearchChange?: (search: boolean) => void;
+  includeSort?: boolean;
+  includeSearch?: boolean;
+  includeSelection?: boolean;
+  includeFilters?: boolean;
+  includePagination?: boolean;
+  commitTableChanges?: (changes: any) => void;
+  tableLoad?: (loading: boolean) => void;
 }

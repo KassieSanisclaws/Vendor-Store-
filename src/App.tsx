@@ -14,6 +14,12 @@ import VendorRoute from './Components/PrivateRoutes/vendorRoute';
 import AdminRoute from './Components/PrivateRoutes/adminRoute';
 import { About } from './Pages/about';
 import VendorAccountPage from './Screens/Vendors/vendorAccountPage';
+import { AdminAccountPage } from './Screens/Admins/adminAccountPage';
+import BillableItemsAccordion from './Components/Accordion/billableItemsAccordion';
+import { TestAccordion } from './Components/Accordion/testAccordion';
+import { TestAccordionTwo } from './Components/Accordion/testAccordionTwo';
+import { BillableItemsTable } from './Components/Accordion/billableItemsTable';
+import SampleAccordion from './Components/Accordion/sampleAccordion';
 
 function App() {
   return (
@@ -40,6 +46,13 @@ function App() {
             <Route path="/userProfile" element={<UserProfile />} />
             <Route path="/vendorDashboard" element={<VendorAccountPage />} />
             <Route path="/about" element={<About />} />
+            <Route path="/adminDashboard" element={<AdminAccountPage />} />
+            <Route path="/billableAccordion" element={<BillableItemsAccordion />} />
+            <Route path="/testAccordion" element={<TestAccordion />} />
+            <Route path="/textAccordionTwo" element={<TestAccordionTwo />} />
+            <Route path="/billableItemsTable" element={<BillableItemsTable />} />
+            <Route path="/sampleAccordion" element={<SampleAccordion />} />
+
             <Route path="" element={<VendorRoute />} >
                 
             </Route> 

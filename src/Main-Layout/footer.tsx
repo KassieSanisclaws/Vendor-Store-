@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
+import { useThemeMode } from '../main';
 import { Container, Box, Grid, Typography } from '@mui/material';
 
 
 export const Footer = () => {
+    const { mode } = useThemeMode();
     return (
-            <Box sx={{ width: "100%", height: "1000%", bgcolor: "#29AB87" }}>
+            <Box sx={{ width: "100%", height: "1000%", bgcolor: mode === "dark" ? "primary.light" : "primary.dark" }}>
                 <Container maxWidth="xl" >
                     <Grid container spacing={{ xs: 2, md: 3 }} columnSpacing={{ sx: 4, sm: 8, md: 12 }} justifyContent="center">
                         <Grid item xs={1} sm={4} md={4} >

@@ -7,7 +7,7 @@ import { CatchingPokemon } from '@mui/icons-material';
 export const Header = () => {
     const { mode, toggleThemeMode } = useThemeMode();
     return (
-        <AppBar position="static" sx={{ bgcolor: "#29AB87", }}>
+        <AppBar position="static" sx={{ bgcolor: mode === "dark" ? "primary.light" : "primary.dark", }}>
             <Toolbar>
                 <IconButton size="large" edge="start" color="secondary" aria-label="logo">
                     <CatchingPokemon /> {/* this line will change for icon img  */}
