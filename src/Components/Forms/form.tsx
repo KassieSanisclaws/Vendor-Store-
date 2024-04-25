@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CssBaseline, Container, Box, TextField, Typography, Button, Snackbar, Alert, AlertColor } from '@mui/material';
+import MainImg from "../../assets/Pictures/Untitled2.png";
 
 
 export interface LoginFormData {
@@ -435,9 +436,17 @@ export function Form({
     return (
         <Container maxWidth="xl" sx={{ height: "100%", mt: 3, mb: 6 }} style={{ width: containerWidth }}>
             <Box sx={{ height: "100%" }}>
-                <Container sx={{ bgcolor: mode === "dark" ? "#A2F3D1" : "#29AB87", height: "90vh", padding: "40px", overflow: "hidden", paddingBlock: "40px", borderRadius: "15px" }}>
+                <Container sx={{ bgcolor: mode === "dark" ? "#47008F" : "#F5EBFF", height: "90vh", padding: "40px", overflow: "hidden", paddingBlock: "40px", borderRadius: "15px" }}>
                     <CssBaseline />
-                    <Box sx={{ bgcolor: mode === "dark" ? "primary.dark" : "primary.light", height: "100%", width: "100%", overflow: "hidden", borderRadius: "10px", overflowY: "auto", scrollbarColor: mode === "dark" ? "#29AB87 #A2F3D1" : "#A2F3D1 #29AB87", scrollbarWidth: "thin", }}>
+                    <Box sx={{  bgcolor: mode === "dark" ? "primary.dark" : "primary.light", 
+                                       height: "100%", 
+                                       width: "100%", 
+                                       overflow: "hidden", 
+                                       borderRadius: "10px", 
+                                       overflowY: "auto", 
+                                       scrollbarColor: mode === "dark" ? "#47008F #F5EBFF" : "#F5EBFF #47008F", 
+                                       scrollbarWidth: "thin",  
+                                       }}>
                         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                             {icon}
                             <Typography variant="h5" component="h1" sx={{ mt: 1 }}>{title}</Typography>
@@ -461,9 +470,18 @@ export function Form({
                             )}
 
                             {includeImageField && (
-                                <Box sx={{ bgcolor: "red", height: "13rem", width: "100%" }} mt={2} mb={2}>
-                                    {/* //Image Here */}
-                                    <Typography variant="h6" component="h2" sx={{ mt: 1 }}> VendorStoreApp </Typography>
+                                <Box sx={{  
+                                       height: "13rem", 
+                                       width: "100%",
+                                       display: "flex",
+                                       alignContent: "center",
+                                       justifyContent: "center", 
+                                       overflow: "hidden" 
+                                    }} 
+                                     mt={2} 
+                                     mb={2}
+                                     >
+                                    <img src={MainImg} style={{  width: "70vw",  maxHeight: "100%",  objectFit: "cover", }} />
                                 </Box>
                             )}
 

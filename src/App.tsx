@@ -20,6 +20,7 @@ import { TestAccordion } from './Components/Accordion/testAccordion';
 import { TestAccordionTwo } from './Components/Accordion/testAccordionTwo';
 import { BillableItemsTable } from './Components/Accordion/billableItemsTable';
 import SampleAccordion from './Components/Accordion/sampleAccordion';
+import { TestProductPage } from './Components/Products/testProductPage';
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
             <Route path="/textAccordionTwo" element={<TestAccordionTwo />} />
             <Route path="/billableItemsTable" element={<BillableItemsTable />} />
             <Route path="/sampleAccordion" element={<SampleAccordion />} />
+            <Route path="/testProductPage" element={<TestProductPage />} />
 
             <Route path="" element={<VendorRoute />} >
                 
