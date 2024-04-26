@@ -1,14 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Settings, FilterListOff } from "@mui/icons-material";
+import React from "react";
 import {
     Table,
-    IconButton,
     TableBody,
     TableCell,
     TableContainer,
-    TableHead,
     TableRow,
-    Select,
     Grid,
     Accordion,
     AccordionSummary,

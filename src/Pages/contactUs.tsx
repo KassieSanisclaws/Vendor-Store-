@@ -4,7 +4,6 @@ import { Form, ContactUsFormData } from '../Components/Forms/form';
 import { AlertColor, CircularProgress, Stack, Box } from '@mui/material/';
 import { CatchingPokemon } from '@mui/icons-material';
 
-
 export const ContactUs = () => {
     const { mode } = useThemeMode();
     const [loading, setLoading] = useState(true);

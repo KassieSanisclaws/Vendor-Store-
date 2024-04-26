@@ -28,6 +28,9 @@ import { TestAccordionTwo } from '../Accordion/testAccordionTwo';
 import { TablePage } from '../Table/tablePage';
 import TabComponentTwo  from '../Tabs/tabComponentTwo';
 import VerticalTabs from '../Tabs/verticalTabs';
+import ColumnsHistory from "../../JsonData/dataStructures";
+import AboutUsCarouselData from "../../JsonData/dataStructures";
+import DataSample from "../../JsonData/dataStructures";
 
 
 const CustomIconHoverStyle = styled(IconButton)(({ theme }) => ({
@@ -37,32 +40,6 @@ const CustomIconHoverStyle = styled(IconButton)(({ theme }) => ({
         }
       }
   }));
-
-const columnsHistory: readonly ColumnHistory[] = [
-    { id: 'name', label: 'Name', minWidth: 170 },
-    { id: 'name', label: 'ISO\u00a0Code', minWidth: 100 },
-    {
-        id: 'population',
-        label: 'Population',
-        minWidth: 170,
-        align: 'right',
-        format: (value: number) => value.toLocaleString('en-US'),
-    },
-    {
-        id: 'size',
-        label: 'Size\u00a0(km\u00b2)',
-        minWidth: 170,
-        align: 'right',
-        format: (value: number) => value.toLocaleString('en-US'),
-    },
-    {
-        id: 'density',
-        label: 'Density',
-        minWidth: 170,
-        align: 'right',
-        format: (value: number) => value.toFixed(2),
-    },
-];
 
 function createData(
         name: string,
@@ -91,81 +68,6 @@ function createData(
         createData('Nigeria', 'NG', 200962417, 923768),
         createData('Brazil', 'BR', 210147125, 8515767),
     ];
-
-const itemData = [
-    {
-        img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
-        title: 'Breakfast',
-        author: '@bkristastucchio',
-        rows: 2,
-        cols: 2,
-        featured: true,
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
-        title: 'Burger',
-        author: '@rollelflex_graphy726',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
-        title: 'Camera',
-        author: '@helloimnik',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c',
-        title: 'Coffee',
-        author: '@nolanissac',
-        cols: 2,
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1533827432537-70133748f5c8',
-        title: 'Hats',
-        author: '@hjrc33',
-        cols: 2,
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62',
-        title: 'Honey',
-        author: '@arwinneil',
-        rows: 2,
-        cols: 2,
-        featured: true,
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1516802273409-68526ee1bdd6',
-        title: 'Basketball',
-        author: '@tjdragotta',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1518756131217-31eb79b20e8f',
-        title: 'Fern',
-        author: '@katie_wasserman',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1597645587822-e99fa5d45d25',
-        title: 'Mushrooms',
-        author: '@silverdalex',
-        rows: 2,
-        cols: 2,
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1567306301408-9b74779a11af',
-        title: 'Tomato basil',
-        author: '@shelleypauls',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1471357674240-e1a485acb3e1',
-        title: 'Sea star',
-        author: '@peterlaster',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1589118949245-7d38baf380d6',
-        title: 'Bike',
-        author: '@southside_customs',
-        cols: 2,
-    },
-];
-
 
     const myComponentList = [
         {
@@ -285,14 +187,10 @@ function PageLayout({
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [isLoading, setIsLoading] = React.useState(false);
-
-    // const { values, handleChange } = useFormik({
-    //     initialValues: {
-    //         priceScheme: null,
-    //         premium: null,
-    //     },
-    //     onSubmit: (values) => console.log(values),
-    // });
+    const columnsHistory = ColumnsHistory.ColumnsHistory;
+    const itemData = AboutUsCarouselData.AboutUsCarouselData;
+    const itemDataTwo = AboutUsCarouselData.AboutUsCarouselData;
+    const dataSample = DataSample.DataSample;
 
     const tabs = [
     { label: <Typography variant="h6">Tab1</Typography>, component: <SampleAccordion /> },
@@ -315,50 +213,6 @@ function PageLayout({
         height: 200,
     };
 
-    const dataSample = [
-        {
-            src: 'https://i.ytimg.com/vi/pLqipJNItIo/hqdefault.jpg?sqp=-oaymwEYCNIBEHZIVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLBkklsyaw9FxDmMKapyBYCn9tbPNQ',
-            title: 'Don Diablo @ Tomorrowland Main Stage 2019 | Official…',
-            channel: 'Don Diablo',
-            views: '396k views',
-            createdAt: 'a week ago',
-        },
-        {
-            src: 'https://i.ytimg.com/vi/_Uu12zY01ts/hqdefault.jpg?sqp=-oaymwEZCPYBEIoBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLCpX6Jan2rxrCAZxJYDXppTP4MoQA',
-            title: 'Queen - Greatest Hits',
-            channel: 'Queen Official',
-            views: '40M views',
-            createdAt: '3 years ago',
-        },
-        {
-            src: 'https://i.ytimg.com/vi/kkLk2XWMBf8/hqdefault.jpg?sqp=-oaymwEYCNIBEHZIVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLB4GZTFu1Ju2EPPPXnhMZtFVvYBaw',
-            title: 'Calvin Harris, Sam Smith - Promises (Official Video)',
-            channel: 'Calvin Harris',
-            views: '130M views',
-            createdAt: '10 months ago',
-        },
-        {
-            src: 'https://i.ytimg.com/vi/pLqipJNItIo/hqdefault.jpg?sqp=-oaymwEYCNIBEHZIVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLBkklsyaw9FxDmMKapyBYCn9tbPNQ',
-            title: 'Don Diablo @ Tomorrowland Main Stage 2019 | Official…',
-            channel: 'Don Diablo',
-            views: '396k views',
-            createdAt: 'a week ago',
-        },
-        {
-            src: 'https://i.ytimg.com/vi/_Uu12zY01ts/hqdefault.jpg?sqp=-oaymwEZCPYBEIoBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLCpX6Jan2rxrCAZxJYDXppTP4MoQA',
-            title: 'Queen - Greatest Hits',
-            channel: 'Queen Official',
-            views: '40M views',
-            createdAt: '3 years ago',
-        },
-        {
-            src: 'https://i.ytimg.com/vi/kkLk2XWMBf8/hqdefault.jpg?sqp=-oaymwEYCNIBEHZIVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLB4GZTFu1Ju2EPPPXnhMZtFVvYBaw',
-            title: 'Calvin Harris, Sam Smith - Promises (Official Video)',
-            channel: 'Calvin Harris',
-            views: '130M views',
-            createdAt: '10 months ago',
-        },
-    ];
 
     function srcset(image: string, size: number, rows = 1, cols = 1) {
         return {
@@ -579,7 +433,7 @@ function PageLayout({
                                             <ImageListItem key="Subheader" cols={2}>
                                                 <ListSubheader component="div">December</ListSubheader>
                                             </ImageListItem>
-                                            {itemData.map((item) => (
+                                            {itemDataTwo.map((item) => (
                                                 <ImageListItem key={item.img}>
                                                     <img
                                                         srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}

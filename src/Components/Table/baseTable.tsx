@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React from "react";
 import { Settings, FilterListOff } from "@mui/icons-material";
-import { Table, IconButton, TableBody, TableCell, TableContainer, TableHead, TableRow, Select, Grid } from "@mui/material";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Grid } from "@mui/material";
 import { TableProps } from "../../Types/typeInterface";
 
 

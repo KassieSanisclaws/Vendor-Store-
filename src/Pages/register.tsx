@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useThemeMode } from '../main';
@@ -94,7 +94,6 @@ export function Register() {
 //         navigate("/login");
 //     }
 // }, [userInfo, navigate]);
-
 
    useEffect(() => {
      const timer = setTimeout(() => {

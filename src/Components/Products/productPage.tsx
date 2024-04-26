@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useThemeMode } from '../../main';
+import { useDispatch, useSelector } from 'react-redux';
 import { styled } from "@mui/material/styles";
-import { Container, Box, Grid, Typography, Button, List, ListItem, ListItemText, Paper, Card, CardActionArea, CardMedia, Stack, Tooltip
+import { Container, Box, Grid, Typography, ListItem, ListItemText, Paper, Card, CardActionArea, CardMedia, Stack, Tooltip, CircularProgress, List, Avatar,
+         Rating, IconContainerProps, Chip
  } from '@mui/material';
-import { Star } from '@mui/icons-material';
+import { AttachMoney, MoneyOff, Map, CommentOutlined, SentimentVerySatisfiedOutlined, ReviewsOutlined, SentimentDissatisfied, SentimentVeryDissatisfied, SentimentVerySatisfied, SentimentSatisfied, SentimentSatisfiedAlt  } from '@mui/icons-material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -12,17 +14,12 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
 import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
-
-export interface ProductPageProps {
-    images: string[];
-    productName: string;
-    price: string;
-    description: string[];
-    descriptionTitle: string;
-    toolsRequired: string;
-    priceWithoutTax: string;
-    deliveryEstimate: string;
-}
+import TabComponentTwo from '../Tabs/tabComponentTwo';
+import { BaseTable } from "../Table/baseTable";
+import ColumnsHistory from "../../JsonData/dataStructures";
+import RowsHistory from "../../JsonData/dataStructures";
+import { ColumnHistory } from "../../Types/typeInterface";
+import { ProductPageProps } from "../../Types/typeInterface";
 
 const ProSpan = styled('span')({
     display: 'inline-block',
@@ -66,30 +63,93 @@ function Label({
             </Stack>
         );
     }
-
     return content;
+}
+
+const StyledRating = styled(Rating)(({ theme }) => ({
+    '& .MuiRating-iconEmpty .MuiSvgIcon-root': {
+        color: theme.palette.action.disabled,
+    },
+}));
+
+const customIcons: {
+    [index: string]: {
+        icon: React.ReactElement;
+        label: string;
+    };
+} = {
+    1: {
+        icon: <SentimentVeryDissatisfied color="error" />,
+        label: 'Very Dissatisfied',
+    },
+    2: {
+        icon: <SentimentDissatisfied color="error" />,
+        label: 'Dissatisfied',
+    },
+    3: {
+        icon: <SentimentSatisfied color="warning" />,
+        label: 'Neutral',
+    },
+    4: {
+        icon: <SentimentSatisfiedAlt color="success" />,
+        label: 'Satisfied',
+    },
+    5: {
+        icon: <SentimentVerySatisfied color="success" />,
+        label: 'Very Satisfied',
+    },
+};
+
+function IconContainer(props: IconContainerProps) {
+    const { value, ...other } = props;
+    return <span {...other}>{customIcons[value].icon}</span>;
 }
 
 const ProductPage: React.FC<ProductPageProps> = ({
     images,
-    productName,
+    name,
     price,
+    reviews,
+    greeting,
     description,
+    greetingTitle,
+    reviewTitle,
     descriptionTitle,
-    toolsRequired,
     priceWithoutTax,
-    deliveryEstimate,
+    businessLocation,
+    ratings,
+    satisfactionRating,
+    satisfactionRatingTitle,
 }) => {
     const { mode } = useThemeMode();
     const [selectedImage, setSelectedImage] = useState<string>(images[0]);
+    const { selectedItem } = useSelector((state: any) => state.product.selectedItem);
+    const [isLoading, setLoading] = useState<boolean>(true);
+    const columnsHistory = ColumnsHistory.ColumnsHistory;
+    const rowsHistory = RowsHistory.RowsHistory;
+
+    // useEffect(()=> {
+    //     dispatch(());
+    // },[]);
+
+    useEffect(() => {
+       const timer = setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+        return () => clearTimeout(timer);
+    }, []);
+    
     return (
         <Container maxWidth="xl">
-            <Grid container sx={{ height: "100%", width: "100%", border: "3px solid #crimson" }} spacing={3} mb={3}>
-                <Grid item container sx={{ height: "100%", width: "100%", border: "3px solid #violet" }} xs={12}>
-                    <Link to="/"><Typography variant="body1">Back To Results</Typography></Link>
-                </Grid>
+            <Grid container sx={{ height: "100%", width: "100%", mt: .5 }} spacing={3} mb={3}>
+                <Chip 
+                   component={Link}
+                   to="/"
+                    sx={{ mt: 2, bgcolor: mode === "dark" ? "primary.light" : "primary.dark", cursor: "pointer", '&:hover': { cursor: "pointer", color: mode === "dark" ? "primary.dark" : "primary.light" }}}
+                  label={<Typography variant="body1">Back To Results</Typography>}>
+                </Chip>
                 <Grid container item sx={{ width: "100%", height: "100%" }}>          
-                    <Grid item sx={{ width: "50vw", height: "100%", border: "3px solid teal", }} xs={12} md={6}>
+                    <Grid item sx={{ width: "50vw", height: "100%" }} xs={12} md={6}>
                         <Box sx={{ overflow: "hidden" }}>
                             <Paper sx={{ width: '100%', bgcolor: mode === "dark" ? "primary.light" : "primary.dark", borderTopRightRadius: "10px", borderTopLeftRadius: "10px", display: "flex", justifyContent: "center", padding: "10px",columnGap: 2 }}>
                                 {images.map((image, index) => (
@@ -111,47 +171,99 @@ const ProductPage: React.FC<ProductPageProps> = ({
                               <img src={selectedImage} alt="Selected Product" style={{ width: "100%", height: "auto", objectFit: "cover" }} />
                             )}
                         </Box>
-
-                        <Box sx={{ width: "100%", height: "100%", border: "3px solid black", mt: 4 }}>
-                        <List>
+                        <Box sx={{ height: "100%", width: "100%", mt: 1, overflow: "hidden", bgcolor: mode === "dark" ? "primary.light" : "primary.dark", borderRadius: "10px" }}>
+                            <Container sx={{ display: "flex", height: "100%", justifyContent: "center", padding: "10px" }}>
+                                <Paper sx={{ width: '100%', height: "8vh", bgcolor: mode === "dark" ? "primary.dark" : "primary.light", borderRadius: "10px", display: "flex", justifyContent: "center",}}>
                             <ListItem>
-                                <ListItemText primary={`Price Without Tax Here: ${priceWithoutTax}`} />
+                              <ListItemText primary={<><MoneyOff/> {priceWithoutTax}</>}/>
+                            </ListItem> 
+                            <ListItem>
+                                <ListItemText primary={<><AttachMoney/> {price}</>}/>
                             </ListItem>
                             <ListItem>
-                                <ListItemText primary={`Delivery Arrival Estimate Here: ${deliveryEstimate}`} />
+                                <ListItemText primary={<><Map/> {businessLocation}</>}/>
                             </ListItem>
-                            {description.map((desc, index) => (
-                                             <ListItem key={index}>
-                                             <ListItemText primary={desc} />
-                                             </ListItem>
-                                          ))}
-                            <ListItem>
-                                <Button variant="contained" color="primary">Add To Cart</Button>
-                            </ListItem>
-                            <ListItem>
-                                <Button variant="contained" color="primary">Buy Now</Button>
-                            </ListItem>
-                            <ListItem>
-                                <ListItemText primary="List Item Here:" />
-                            </ListItem>
-                             <Star />
-                        </List>
-                    </Box>
-                    </Grid>
-
-                    <Grid item sx={{ border: "3px solid green", width: "100%", height: "100%" }} xs={12} md={6}>
-                        <Container sx={{ height: "100%", width: "100%" }}>      
-                            <Box sx={{ overflow: "hidden" }}>    
+                           </Paper>
+                        </Container>
+                        </Box>
+                        <Box sx={{ width: "100%", height: "100%", mt: 3, borderRadius: "20px", mb: 3 }}>
                                 <Paper sx={{ width: '100%', height: "100%", bgcolor: mode === "dark" ? "primary.light" : "primary.dark", borderRadius: "10px", display: "flex", justifyContent: "center", padding: "10px", columnGap: 2 }}>
+                                        <TabComponentTwo 
+                                            tabs={[
+                                                { 
+                                                  icon: <SentimentVerySatisfiedOutlined />,
+                                                  label: <Typography variant="subtitle1">
+                                                            {greetingTitle}
+                                                        </Typography>,
+                                                  component: <Box sx={{ height: "100%", width: "100%", }}>
+                                                                <Paper sx={{ bgcolor: mode === "dark" ? "primary.dark" : "primary.light", width: "100%", height: "100%", display: "flex", justifyContent: "center" }}>
+                                                                    {greeting}  
+                                                                </Paper>         
+                                                             </Box>},
+                                                { 
+                                                  icon: <ReviewsOutlined />,
+                                                  label: <Typography variant="subtitle1">
+                                                                {reviewTitle}
+                                                         </Typography>, 
+                                                  component: <Box sx={{ width: "100%", height: "100%" }}>
+                                                               <Paper sx={{ bgcolor: mode === "dark"  ? "primary.dark": "primary.light" }}>
+                                                                 <List>    
+                                                               {reviews.map((rev, indx) => (
+                                                                 <ListItem key={indx} alignItems='flex-start'>
+                                                                     <Avatar alt={`User ${indx + 1}`} src={`avatar-url-${indx + 1}`} />
+                                                                     <ListItemText 
+                                                                          primary={rev}
+                                                                          secondary={
+                                                                                  <>
+                                                                                      <Rating key={indx} size="large" style={{ color: "#ffc107" }} value={ratings[0]} />
+                                                                                      <Box sx={{ overflow: "hidden", maxHeight: "20vh" }}>
+                                                                                      <StyledRating
+                                                                                        name={`customized-color-${satisfactionRatingTitle}`}
+                                                                                        defaultValue={satisfactionRating}
+                                                                                        getLabelText={(value) => customIcons[value].label}
+                                                                                        IconContainerComponent={IconContainer}
+                                                                                        /> 
+                                                                                      </Box>  
+                                                                                 </>                                                                            
+                                                                           } 
+                                                                        />
+                                                                 </ListItem>
+                                                               ))}
+                                                                </List>
+                                                               </Paper>
+                                                             </Box> 
+                                                },
+                                                { 
+                                                  icon: <CommentOutlined />,
+                                                  label: <Typography variant="subtitle1">
+                                                            {descriptionTitle}
+                                                         </Typography>,
+                                                  component: <Box sx={{ width: "100%", height: "100%" }}> 
+                                                      <Paper sx={{ bgcolor: mode === "dark" ? "primary.dark" : "primary.light", height: "100%", width: "100%" }}>
+                                                           {description.map((desc, index) => (
+                                                             <ListItem key={index}>
+                                                             <ListItemText primary={desc} />
+                                                             </ListItem>
+                                                             ))} 
+                                                           </Paper>
+                                                         </Box> 
+                                                  },
+                                              ]}
+                                           />
+                                    </Paper>
+                             </Box>
+                    </Grid>
+                    <Grid item sx={{ width: "100%", height: "100%" }} xs={12} md={6}>
+                        <Container sx={{ height: "100%", width: "100%" }}>      
+                            <Box sx={{ overflow: "hidden" }}>        
                                     <Stack spacing={2}>           
                                         <ListItem>
-                                            <Typography variant="h4">{productName}</Typography>
-                                        </ListItem>
-                                        {/* <ListItemText>
-                                            <Typography variant="h3">{descriptionTitle}</Typography>
-                                        </ListItemText> */}
-                                        <ListItem>
-                                            <Box width="100%">
+                                       <Paper sx={{ width: '100%', height: "100%", bgcolor: mode === "dark" ? "primary.light" : "primary.dark", borderRadius: "10px", display: "flex", justifyContent: "center", padding: "10px", columnGap: 2 }}>       
+                                        <Box width="100%" height="100%">
+                                        <Paper sx={{ width: '100%', height: "100%", bgcolor: mode === "dark" ? "primary.dark" : "primary.light", borderRadius: "10px", padding: "20px"}}>
+                                         <ListItem>
+                                            <Typography variant="h4">{name}</Typography>
+                                        </ListItem>   
                                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                                 <DemoContainer
                                                     components={[
@@ -177,7 +289,6 @@ const ProductPage: React.FC<ProductPageProps> = ({
                                                             <Label
                                                                 componentName="DateRangePicker"
                                                                 valueType="date range"
-                                                                isProOnly
                                                             />
                                                         }
                                                         component="DateRangePicker"
@@ -191,17 +302,51 @@ const ProductPage: React.FC<ProductPageProps> = ({
                                                     </DemoItem>
                                                 </DemoContainer>
                                             </LocalizationProvider>
+                                             </Paper>
                                             </Box>
-                                        </ListItem>
-                                        <ListItem sx={{ border: "3px solid red", width: "35vw", height: "50vh" }}>
-                                            Table of services cost
+                                          </Paper>
                                         </ListItem>
                                         <ListItem>
-                                           <ListItemText primary={`Tools Required To Build Here: ${toolsRequired}`} />
+                                        <Paper sx={{ width: '100%', height: "100%", bgcolor: mode === "dark" ? "primary.light" : "primary.dark", borderRadius: "10px", display: "flex", justifyContent: "center", padding: "10px", columnGap: 2 }}>
+                                            <Box
+                                                sx={{
+                                                    position: 'fixed',
+                                                    top: 0,
+                                                    left: 0,
+                                                    width: '100%',
+                                                    height: '100%',
+                                                    display: 'flex',
+                                                    justifyContent: 'center',
+                                                    alignItems: 'center',
+                                                    bgcolor: isLoading ? 'rgba(0, 0, 0, 0.5)' : "", //Semi-transparent background overlay
+                                                    zIndex: isLoading ? 9999 : -1, // Ensure CircularProgress is above other content when loading
+                                                }}>
+                                                {isLoading && (
+                                                    <Stack sx={{ color: 'grey.500' }} spacing={2} direction="row">
+                                                        <CircularProgress color="primary" />
+                                                    </Stack>
+                                                )}
+                                            </Box>
+                                            <Box sx={{ overflow: "hidden", width: "35vw", height: "100%" }}>
+                                                <Container sx={{
+                                                      height: "55vh", 
+                                                      overflow: "auto", 
+                                                      scrollbarColor: mode === "dark" ? "#47008F #F5EBFF" : "#F5EBFF #47008F",
+                                                      scrollbarWidth: "thin", 
+                                                      }}
+                                                      >
+                                                <Paper sx={{ width: '100%', bgcolor: mode === "dark" ? "primary.dark" : "primary.light", borderRadius: "10px", display: "flex", justifyContent: "center", padding: "8px"}}>
+                                              <BaseTable
+                                                 rows={rowsHistory}
+                                                 columns={columnsHistory as ColumnHistory[]} 
+                                                 isLoading={isLoading}
+                                               />
+                                               </Paper>
+                                              </Container> 
+                                            </Box>
+                                            </Paper>
                                         </ListItem>
-                                         <ListItemText primary={price} secondary="Price + Shipping Here" />
                                     </Stack>
-                                </Paper>
                             </Box> 
                         </Container>
                     </Grid>

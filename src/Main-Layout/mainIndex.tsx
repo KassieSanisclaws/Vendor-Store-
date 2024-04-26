@@ -1,141 +1,67 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { CarouselComponent } from '../Components/Carousel/carousel';
 import { useThemeMode } from '../main';
-import { Container, Box, Grid, Typography, CssBaseline, ImageListItemBar, IconButton, ImageListItem } from '@mui/material';
+import { Container, Box, Grid, CssBaseline, ImageListItemBar, IconButton, CircularProgress, Stack } from '@mui/material';
 import { Info } from '@mui/icons-material';
-import Img1 from '../assets/Pictures/Untitled14.jpg';
-import Img2 from '../assets/Pictures/Untitled12.jpg';
-import Img3 from '../assets/Pictures/Untitled8.jpg';
-import Img4 from '../assets/Pictures/Untitled11.jpg';
-import Img5 from '../assets/Pictures/Untitled13.jpg';
-import Img6 from '../assets/Pictures/Untitled15.jpg';
-import ProductPage from '../Components/Products/productPage';
-
+import ItemDataSample from "../JsonData/dataStructures";
 
 
 export const MainIndex = () => {
     const { mode } = useThemeMode();
-
-    const itemData = [
-        {
-            id: 1,
-            img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
-            title: 'Breakfast',
-            author: '@bkristastucchio',
-        },
-        {
-            id: 2,
-            img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
-            title: 'Burger',
-            author: '@rollelflex_graphy726',
-        },
-        {
-            id: 3,
-            img: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
-            title: 'Camera',
-            author: '@helloimnik',
-        },
-        {
-            id: 4,
-            img: 'https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c',
-            title: 'Coffee',
-            author: '@nolanissac',
-        },
-        {
-            id: 5,
-            img: 'https://images.unsplash.com/photo-1533827432537-70133748f5c8',
-            title: 'Hats',
-            author: '@hjrc33',
-            cols: 2,
-        },
-        {
-            id: 6,
-            img: Img4,
-            title: 'Honey',
-            author: '@arwinneil',
-            rows: 2,
-            cols: 2,
-            featured: true,
-        },
-        {
-            id: 7,
-            img: Img5,
-            title: 'Basketball',
-            author: '@tjdragotta',
-        },
-        {
-            id: 8,
-            img: Img3,
-            title: 'Fern',
-            author: '@katie_wasserman',
-        },
-        {
-            id: 9,
-            img: Img6,
-            title: 'Mushrooms',
-            author: '@silverdalex',
-        },
-        {
-            id: 10,
-            img: Img6,
-            title: 'Tomato basil',
-            author: '@shelleypauls',
-        },
-        {
-            id: 11,
-            img: Img6,
-            title: 'Sea star',
-            author: '@peterlaster',
-        },
-        {
-            id: 12,
-            img: Img1,
-            title: 'Bike',
-            author: '@southside_customs',
-        },
-    ];
-
-    // const product = {
-    //     images: ['image1.jpg', 'image2.jpg', 'image3.jpg'],
-    //     productName: 'Product Name',
-    //     price: '$100',
-    //     description: ['Description line 1', 'Description line 2'],
-    //     descriptionTitle: 'Product Description',
-    //     toolsRequired: 'Tools required',
-    //     priceWithoutTax: '$90',
-    //     deliveryEstimate: '2-3 days',
-    // };
+    const dispatch = useDispatch();
+    const itemData = ItemDataSample.ItemDataSample;
+    const [loading, setLoading] = useState(true);
+    // const { setSelectedItem } = useSelector((state: any) => state.product);
 
 const handleItemClick = (id: number) => {
     // Redirect to the product page with the corresponding id
         const selectedItem = itemData.find(item => item.id === id);
+        // dispatch(setSelectedItem(selectedItem));
             console.log(selectedItem);
-            // return <ProductPage  
-            //               images={product.images} 
-            //               productName={product.productName} 
-            //               price={product.price} 
-            //               description={product.description} 
-            //               descriptionTitle={product.descriptionTitle} 
-            //               toolsRequired={product.toolsRequired} 
-            //               priceWithoutTax={product.priceWithoutTax} 
-            //               deliveryEstimate={product.deliveryEstimate} 
-            //               />;
-                       };
+           };
+
+   useEffect(() => {
+      const timer = setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+     return () => clearTimeout(timer); 
+    }, [])
 
 return (
-    <Container maxWidth="xl" sx={{ height: "100%", mt: 3, mb: 6 }}>
+    <Container maxWidth="xl" sx={{ height: "100%", mt: 3, mb: 6 }}>    
         <Box sx={{ height: "100%" }}>
             <Container sx={{ bgcolor: mode === "dark" ? "#47008F" : "#F5EBFF", height: "90vh", padding: "40px", width: "100%", overflow: "hidden", paddingBlock: "40px", borderRadius: "15px" }}>
                 <CssBaseline />
+                <Box
+                            sx={{
+                                 position: 'fixed',
+                                 top: 0,
+                                 left: 0,
+                                 width: '100%',
+                                 height: '100%',
+                                 display: 'flex',
+                                 justifyContent: 'center',
+                                 alignItems: 'center',
+                                 bgcolor: loading ? 'rgba(0, 0, 0, 0.5)' : "", //Semi-transparent background overlay
+                                 zIndex: loading ? 9999 : -1, // Ensure CircularProgress is above other content when loading
+                               }}>
+                         {loading && (
+                            <Stack sx={{ color: 'grey.500' }} spacing={2} direction="row">
+                              <CircularProgress color="primary" />
+                            </Stack>
+                              )}
+                          </Box>
                 <Box sx={{ height: "35vh", width: "100%", overflow: "hidden", borderRadius: "10px" }}>
                     <CarouselComponent images={itemData.map(item => item.img)} />
                 </Box>
                 <Box sx={{ width: "100%", flexGrow: 1, position: "relative", top: "1.5rem", }}>
-                    <Container sx={{ height: "50vh", padding: "40px", width: "100%", overflow: "hidden", paddingBlock: "40px", borderRadius: "15px", overflowY: "auto", scrollbarColor: mode === "dark" ? "#47008F #F5EBFF" : "#F5EBFF #47008F", scrollbarWidth: "thin", }}>
+                    <Container sx={{ height: "50vh", padding: "40px", width: "100%", overflow: "hidden", paddingBlock: "40px", borderRadius: "15px", overflowY: "auto", scrollbarColor: mode === "dark" ? "#47008F #F5EBFF" : "#F5EBFF #47008F", scrollbarWidth: "thin", }}>     
                         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                             {itemData.map((itm, indx) => (
                                 <Grid item xs={3} sm={4} key={indx}>
-                                   {/* <Link to={`/product/${indx + 1}`}> */}
+                                   <Link to={`/product/${indx + 1}`}>
                                     <Box sx={{ bgcolor: mode === "dark" ? "primary.dark" : "primary.light", 
                                                height: "100%", 
                                                borderRadius: "13px", 
@@ -181,7 +107,7 @@ return (
                                                 </Box>
                                             </Box>
                                     </Box>
-                                    {/* </Link> */}
+                                    </Link>
                                 </Grid>
                             ))}
                         </Grid>

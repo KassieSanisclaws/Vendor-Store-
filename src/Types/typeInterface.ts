@@ -161,3 +161,20 @@ export interface TableProps {
   commitTableChanges?: (changes: any) => void;
   tableLoad?: (loading: boolean) => void;
 }
+
+export interface ProductPageProps {
+  images: string[];
+  name: string;
+  price: string;
+  description: string[];
+  descriptionTitle: string;
+  reviews: string[];
+  reviewTitle: string;
+  greeting: string;
+  greetingTitle: string;
+  priceWithoutTax: string;
+  businessLocation: string;
+  ratings: number[];
+  satisfactionRating: number;
+  satisfactionRatingTitle: string;
+}

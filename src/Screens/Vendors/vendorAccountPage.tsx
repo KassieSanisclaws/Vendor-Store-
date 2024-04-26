@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useThemeMode } from '../../main';
 import { Box, Stack, CircularProgress, AlertColor } from '@mui/material';
-import { GridColDef } from '@mui/x-data-grid';
 import PageLayout from '../../Components/Page-Layout/pageLayout';
-import { ButtonData, ReviewData, PieGraphData, RowData } from '../../Types/typeInterface';
+import { ButtonData, ReviewData } from '../../Types/typeInterface';
+import Rows from '../../JsonData/dataStructures';
+import PieData from "../../JsonData/dataStructures";
+import Columns from "../../JsonData/dataStructures";
 
 function vendorAccountPage() {
   const { mode } = useThemeMode();
@@ -15,7 +17,9 @@ function vendorAccountPage() {
     severity: '' as AlertColor,
     message: '',
   });
-
+  const rows = Rows.Rows.map((row) => { return { id: row.id, lastName: row.lastName, firstName: row.firstName, age: row.age } });
+  const pieData = PieData.PieData;
+  const columns = Columns.Columns;
 
   const handleSendMessage = () => {
     if (newMessage.trim() !== '') {
@@ -35,45 +39,6 @@ function vendorAccountPage() {
       // Also, make sure to include the Active state
       // Determine Active state based on whether the message is not an empty string
   };
-
-  const data: PieGraphData[] = [
-    { value: 5, label: 'A', width: 100, height: 100 },
-    { value: 10, label: 'B', width: 100, height: 100 },
-    { value: 15, label: 'C', width: 100, height: 100 },
-    { value: 20, label: 'D', width: 100, height: 100 },
-  ];
-
-  const columns: GridColDef[] = [
-    { field: 'id', headerName: 'ID' },
-    { field: 'firstName', headerName: 'First name' },
-    { field: 'lastName', headerName: 'Last name' },
-    {
-      field: 'age',
-      headerName: 'Age',
-      type: 'number',
-
-    },
-    {
-      field: 'fullName',
-      headerName: 'Full name',
-      description: 'This column has a value getter and is not sortable.',
-      sortable: false,
-
-      valueGetter: (_, row) => `${row.firstName || ''} ${row.lastName || ''}`,
-    },
-  ];
-
-  const rows: RowData[] = [
-    { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-    { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-    { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-    { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-    { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-    { id: 6, lastName: 'Melisandre', firstName: '', age: 150 },
-    { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-    { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-    { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-  ];
 
   const handleEditChanges = (e: any) => {
     e.preventDefault();
@@ -148,7 +113,7 @@ function vendorAccountPage() {
          snackbarState={snackbarState}
          newMessageState={{ Active: true, message: newMessage}}
          userType='vendor'
-         data={data}
+         data={pieData}
          columns={columns}
          rows={rows}
          buttonsData={buttonsData}

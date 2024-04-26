@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { useThemeMode } from "../../main";
 import { Tab, Tabs, Box } from '@mui/material';
 
 interface Tab {
-    label: string | React.ReactNode;
-    component: React.ReactNode;
+    icon?: React.ReactNode;
+    label?: string | React.ReactNode;
+    component?: React.ReactNode;
 }
 
 export default function TabComponentTwo({ tabs } : { tabs: Tab[] }) {
-    const { mode } = useThemeMode();
     const [value, setValue] = useState(0);
 
     const handleTabChange = (e: any, newValue: number) => {
@@ -20,8 +19,7 @@ export default function TabComponentTwo({ tabs } : { tabs: Tab[] }) {
         <Box sx={{ width: '100%' }}>
             <Tabs
                 value={value}
-                onChange={handleTabChange}
-                textColor={mode === 'dark' ? 'inherit' : 'primary'}
+                onChange={handleTabChange}      
                 aria-label="wrapped label tabs example"
             >
                 {tabs.map((tab, index) => (
@@ -29,6 +27,8 @@ export default function TabComponentTwo({ tabs } : { tabs: Tab[] }) {
                         key={index}
                         value={index}
                         label={tab.label}
+                        icon={<Box>{tab.icon}</Box>}
+                        iconPosition='start'
                         wrapped
                     />
                 ))}
