@@ -4,7 +4,7 @@ import { AppBar, Toolbar, IconButton, Stack, Button, Typography, Switch } from '
 import { CatchingPokemon } from '@mui/icons-material';
 
 
-export const Header = () => {
+const  Header3 = () => {
     const { mode, toggleThemeMode } = useThemeMode();
     return (
         <AppBar position="static" sx={{ bgcolor: mode === "dark" ? "primary.light" : "primary.dark", }}>
@@ -21,11 +21,7 @@ export const Header = () => {
                 </Typography>
 
                 {/* Light / dark mode toggle switch. */}
-                <Switch
-                    checked={mode === "dark"} //Sets chekced state based om current mode.
-                    onChange={toggleThemeMode} //calls the toggleThemeMode function to change the mode.
-                    color="default"
-                />
+                
 
                 <Stack direction="row" spacing={2}>
                     <Button color="inherit" >
@@ -64,3 +60,5 @@ export const Header = () => {
         </AppBar>
     )
 }
+
+export default Header3
