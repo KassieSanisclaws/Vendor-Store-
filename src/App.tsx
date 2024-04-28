@@ -1,26 +1,26 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import BillableItemsAccordion from './Components/Accordion/billableItemsAccordion';
+import { BillableItemsTable } from './Components/Accordion/billableItemsTable';
+import SampleAccordion from './Components/Accordion/sampleAccordion';
+import { TestAccordion } from './Components/Accordion/testAccordion';
+import { TestAccordionTwo } from './Components/Accordion/testAccordionTwo';
+import AdminRoute from './Components/PrivateRoutes/adminRoute';
+import PrivateRoute from './Components/PrivateRoutes/privateRoute';
+import UserRoute from './Components/PrivateRoutes/userRoute';
+import VendorRoute from './Components/PrivateRoutes/vendorRoute';
+import { TestProductPage } from './Components/Products/testProductPage';
 import { Footer } from './Main-Layout/footer';
+import Header from './Main-Layout/header';
 import { MainIndex } from './Main-Layout/mainIndex';
+import { About } from './Pages/about';
+import { ContactUs } from './Pages/contactUs';
 import { Login } from './Pages/login';
 import { Register } from './Pages/register';
 import { VendorRegistration } from './Pages/vendorRegistration';
-import { ContactUs } from './Pages/contactUs';
-import PrivateRoute from './Components/PrivateRoutes/privateRoute';
+import { AdminAccountPage } from './Screens/Admins/adminAccountPage';
 import { UserDashboard } from './Screens/Users/userAccountPage';
 import UserProfile from './Screens/Users/userProfile';
-import UserRoute from './Components/PrivateRoutes/userRoute';
-import VendorRoute from './Components/PrivateRoutes/vendorRoute';
-import AdminRoute from './Components/PrivateRoutes/adminRoute';
-import { About } from './Pages/about';
 import VendorAccountPage from './Screens/Vendors/vendorAccountPage';
-import { AdminAccountPage } from './Screens/Admins/adminAccountPage';
-import BillableItemsAccordion from './Components/Accordion/billableItemsAccordion';
-import { TestAccordion } from './Components/Accordion/testAccordion';
-import { TestAccordionTwo } from './Components/Accordion/testAccordionTwo';
-import { BillableItemsTable } from './Components/Accordion/billableItemsTable';
-import SampleAccordion from './Components/Accordion/sampleAccordion';
-import { TestProductPage } from './Components/Products/testProductPage';
-import Header from './Main-Layout/header';
 
 function App() {
   return (

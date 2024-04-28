@@ -88,62 +88,62 @@ export function Register() {
         console.log("Register credentials:" + " " + formData.firstname + " " + formData.lastname + " " + formData.email + " " + formData.phoneNumber + " " + "and password:", formData.password);
     }
 
-//UseEffect if userInfor redirect to page login for user to login/ signin.
-// useEffect(() => {
-//     if (userInfo) {
-//         navigate("/login");
-//     }
-// }, [userInfo, navigate]);
+    //UseEffect if userInfor redirect to page login for user to login/ signin.
+    // useEffect(() => {
+    //     if (userInfo) {
+    //         navigate("/login");
+    //     }
+    // }, [userInfo, navigate]);
 
-   useEffect(() => {
-     const timer = setTimeout(() => {
+    useEffect(() => {
+        const timer = setTimeout(() => {
             setLoading(false);
-     }, 2000);
-    return () => clearTimeout(timer);
+        }, 2000);
+        return () => clearTimeout(timer);
     }, []);
 
-return (
-    <>
-      <Box
-            sx={{
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                bgcolor: loading ? 'rgba(0, 0, 0, 0.5)' : "", //Semi-transparent background overlay
-                zIndex: loading ? 9999 : -1, // Ensure CircularProgress is above other content when loading
-            }}
-        >
-         {loading && (
-            <Stack sx={{ color: "grey" }} spacing={2} direction="row" justifyContent="center" alignItems="center">
-                <CircularProgress color="secondary" />
-            </Stack>
-         )}
-      </Box>
-    <Form 
-        mode={mode}
-        loading={loading}
-        formType="register"
-        title="Register"
-        buttonText="Register"
-        includeImageField={true}
-        registerFormSubmit={registerHandler}
-        icon={<AccountCircle sx={{ fontSize: 40, marginTop: "1rem" }} />}
-        includeSnackbarPopup={true}
-        includeRegisterFirstNameField={true}
-        includeRegisterLastNameField={true}
-        includeRegisterPhoneNumberField={true}
-        includeRegisterEmailField={true}
-        includeRegisterPasswordField={true}
-        includeRegisterConfirmEmailField={true}
-        includeRegisterConfirmPasswordField={true}
-        snackbarState={snackbarState}
-        handleSnackbarClosed={handleSnackBarClose}
-    />
-    </>   
-  )
+    return (
+        <>
+            <Box
+                sx={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    bgcolor: loading ? 'rgba(0, 0, 0, 0.5)' : "", //Semi-transparent background overlay
+                    zIndex: loading ? 9999 : -1, // Ensure CircularProgress is above other content when loading
+                }}
+            >
+                {loading && (
+                    <Stack sx={{ color: "grey" }} spacing={2} direction="row" justifyContent="center" alignItems="center">
+                        <CircularProgress color="secondary" />
+                    </Stack>
+                )}
+            </Box>
+            <Form
+                mode={mode}
+                loading={loading}
+                formType="register"
+                title="Register"
+                buttonText="Register"
+                includeImageField={true}
+                registerFormSubmit={registerHandler}
+                icon={<AccountCircle sx={{ fontSize: 40, marginTop: "1rem" }} />}
+                includeSnackbarPopup={true}
+                includeRegisterFirstNameField={true}
+                includeRegisterLastNameField={true}
+                includeRegisterPhoneNumberField={true}
+                includeRegisterEmailField={true}
+                includeRegisterPasswordField={true}
+                includeRegisterConfirmEmailField={true}
+                includeRegisterConfirmPasswordField={true}
+                snackbarState={snackbarState}
+                handleSnackbarClosed={handleSnackBarClose}
+            />
+        </>
+    )
 }

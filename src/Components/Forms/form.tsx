@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CssBaseline, Container, Box, TextField, Typography, Button, Snackbar, Alert, AlertColor } from '@mui/material';
 import MainImg from "../../assets/Pictures/Untitled2.png";
@@ -35,7 +35,7 @@ export interface VendorFormData {
     vendorBusinessLicenseNumber: number;
 }
 
-interface FormProps { 
+interface FormProps {
     mode: string;
     title: string;
     icon: React.ReactNode;
@@ -93,7 +93,7 @@ export function Form({
     includeRegisterLinkField = false,
     includeImageField = false,
     formType,
-    containerWidth = "35%",
+    containerWidth = "50%",
     includeSnackbarPopup = false,
     handleSnackbarClosed,
     snackbarState,
@@ -434,19 +434,20 @@ export function Form({
     }
 
     return (
-        <Container maxWidth="xl" sx={{ height: "100%", mt: 3, mb: 6 }} style={{ width: containerWidth }}>
+        <Container sx={{ height: "100%", mt: 3, mb: 6, width: "100%", maxWidth: { xs: "100%", sm: "80%", md: containerWidth } }} >
             <Box sx={{ height: "100%" }}>
                 <Container sx={{ bgcolor: mode === "dark" ? "#47008F" : "#F5EBFF", height: "90vh", padding: "40px", overflow: "hidden", paddingBlock: "40px", borderRadius: "15px" }}>
                     <CssBaseline />
-                    <Box sx={{  bgcolor: mode === "dark" ? "primary.dark" : "primary.light", 
-                                       height: "100%", 
-                                       width: "100%", 
-                                       overflow: "hidden", 
-                                       borderRadius: "10px", 
-                                       overflowY: "auto", 
-                                       scrollbarColor: mode === "dark" ? "#47008F #F5EBFF" : "#F5EBFF #47008F", 
-                                       scrollbarWidth: "thin",  
-                                       }}>
+                    <Box sx={{
+                        bgcolor: mode === "dark" ? "primary.dark" : "primary.light",
+                        height: "100%",
+                        width: "100%",
+                        overflow: "hidden",
+                        borderRadius: "10px",
+                        overflowY: "auto",
+                        scrollbarColor: mode === "dark" ? "#47008F #F5EBFF" : "#F5EBFF #47008F",
+                        scrollbarWidth: "thin",
+                    }}>
                         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                             {icon}
                             <Typography variant="h5" component="h1" sx={{ mt: 1 }}>{title}</Typography>
@@ -470,18 +471,18 @@ export function Form({
                             )}
 
                             {includeImageField && (
-                                <Box sx={{  
-                                       height: "13rem", 
-                                       width: "100%",
-                                       display: "flex",
-                                       alignContent: "center",
-                                       justifyContent: "center", 
-                                       overflow: "hidden" 
-                                    }} 
-                                     mt={2} 
-                                     mb={2}
-                                     >
-                                    <img src={MainImg} style={{  width: "70vw",  maxHeight: "100%",  objectFit: "cover", }} />
+                                <Box sx={{
+                                    height: "13rem",
+                                    width: "100%",
+                                    display: "flex",
+                                    alignContent: "center",
+                                    justifyContent: "center",
+                                    overflow: "hidden"
+                                }}
+                                    mt={2}
+                                    mb={2}
+                                >
+                                    <img src={MainImg} style={{ width: "70vw", maxHeight: "100%", objectFit: "cover", }} />
                                 </Box>
                             )}
 

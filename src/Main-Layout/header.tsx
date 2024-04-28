@@ -57,8 +57,8 @@ function Header() {
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end' }}>
                         {pages.map((page) => (
-                            <Button key={page} onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
-                                <Link key={page} style={{ textDecoration: 'none', color: 'white', textAlign: 'center' }} to={`/${page.split(' ').join('')}`}>
+                            <Button key={page} onClick={handleCloseNavMenu} sx={{ my: 2, display: 'block' }}>
+                                <Link key={page} style={{ textDecoration: 'none', textAlign: 'center', color: "#fff" }} to={`/${page.split(' ').join('')}`}>
                                     {page}
                                 </Link>
                             </Button>
