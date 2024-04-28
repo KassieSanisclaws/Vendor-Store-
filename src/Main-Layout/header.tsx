@@ -41,7 +41,7 @@ function Header() {
                         mr: 2, display: { xs: 'none', md: 'flex' }, fontFamily: 'monospace',
                         fontWeight: 700, letterSpacing: '.3rem', color: 'inherit', textDecoration: 'none'
                     }}>
-                        <Link style={{ textDecoration: 'none', color: '#fff' }} to="/">
+                        <Link style={{ textDecoration: 'none', color: mode == "dark" ? "initial" : "white" }} to="/">
                             VendorStoreApp
                         </Link>
                     </Typography>
@@ -58,7 +58,7 @@ function Header() {
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end' }}>
                         {pages.map((page) => (
                             <Button key={page} onClick={handleCloseNavMenu} sx={{ my: 2, display: 'block' }}>
-                                <Link key={page} style={{ textDecoration: 'none', textAlign: 'center', color: "#fff" }} to={`/${page.split(' ').join('')}`}>
+                                <Link key={page} style={{ textDecoration: 'none', textAlign: 'center', color: mode == "dark" ? "initial" : "white" }} to={`/${page.split(' ').join('')}`}>
                                     {page}
                                 </Link>
                             </Button>
@@ -80,7 +80,7 @@ function Header() {
                     }}>
                         <Switch checked={mode === 'dark'} onChange={toggleThemeMode} color="default" />
                         {pages.map((page) => (
-                            <Link key={page} style={{ textDecoration: 'none', color: '#000', textAlign: 'center' }} to={`/${page.split(' ').join('')}`}>
+                            <Link key={page} style={{ textDecoration: 'none', color: mode == "dark" ? "white" : "initial", textAlign: 'center' }} to={`/${page.split(' ').join('')}`}>
                                 <MenuItem onClick={handleCloseNavMenu}>
                                     {page}
                                 </MenuItem>
