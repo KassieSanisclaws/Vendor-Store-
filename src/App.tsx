@@ -20,7 +20,7 @@ import { TestAccordionTwo } from './Components/Accordion/testAccordionTwo';
 import { BillableItemsTable } from './Components/Accordion/billableItemsTable';
 import SampleAccordion from './Components/Accordion/sampleAccordion';
 import { TestProductPage } from './Components/Products/testProductPage';
-import Header from './Components/Header2';
+import Header from './Main-Layout/header';
 
 function App() {
   return (
@@ -36,11 +36,11 @@ function App() {
             <Route path="/vendor" element={<VendorRegistration />} />
             <Route path="/contactUs" element={<ContactUs />} />
             {/* //PrivateRoutes */}
-            <Route path="" element={<PrivateRoute />} >  
-            {/* <Route path="/vendorDashboard" element={<VendorDashboard />} /> */}
+            <Route path="" element={<PrivateRoute />} >
+              {/* <Route path="/vendorDashboard" element={<VendorDashboard />} /> */}
             </Route>
             <Route path="" element={<UserRoute />}>
-               
+
             </Route>
 
             <Route path="/userDashboard" element={<UserDashboard />} />
@@ -56,13 +56,13 @@ function App() {
             <Route path="/testProductPage" element={<TestProductPage />} />
 
             <Route path="" element={<VendorRoute />} >
-                
-            </Route> 
+
+            </Route>
             <Route path="" element={<AdminRoute />} >
 
             </Route>
-           
-            
+
+
           </Routes>
         </main>
 
