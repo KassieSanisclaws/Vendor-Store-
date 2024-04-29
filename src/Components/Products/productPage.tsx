@@ -6,7 +6,7 @@ import { styled } from "@mui/material/styles";
 import { Container, Box, Grid, Typography, ListItem, ListItemText, Paper, Card, CardActionArea, CardMedia, Stack, Tooltip, CircularProgress, List, Avatar,
          Rating, IconContainerProps, Chip
  } from '@mui/material';
-import { AttachMoney, MoneyOff, Map, CommentOutlined, SentimentVerySatisfiedOutlined, ReviewsOutlined, SentimentDissatisfied, SentimentVeryDissatisfied, SentimentVerySatisfied, SentimentSatisfied, SentimentSatisfiedAlt  } from '@mui/icons-material';
+import { AttachMoney, MoneyOff, Map, CommentOutlined, SentimentVerySatisfiedOutlined, ReviewsOutlined, SentimentDissatisfied, SentimentVeryDissatisfied, SentimentVerySatisfied, SentimentSatisfied, SentimentSatisfiedAlt, ArrowBackIosNew  } from '@mui/icons-material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -123,7 +123,7 @@ const ProductPage: React.FC<ProductPageProps> = ({
 }) => {
     const { mode } = useThemeMode();
     const [selectedImage, setSelectedImage] = useState<string>(images[0]);
-    const { selectedItem } = useSelector((state: any) => state.product.selectedItem);
+    // const { selectedItem } = useSelector((state: any) => state.product.selectedItem);
     const [isLoading, setLoading] = useState<boolean>(true);
     const columnsHistory = ColumnsHistory.ColumnsHistory;
     const rowsHistory = RowsHistory.RowsHistory;
@@ -142,11 +142,12 @@ const ProductPage: React.FC<ProductPageProps> = ({
     return (
         <Container maxWidth="xl">
             <Grid container sx={{ height: "100%", width: "100%", mt: .5 }} spacing={3} mb={3}>
-                <Chip 
+                <Chip
+                   icon={<ArrowBackIosNew/>}
                    component={Link}
                    to="/"
-                    sx={{ mt: 2, bgcolor: mode === "dark" ? "primary.light" : "primary.dark", cursor: "pointer", '&:hover': { cursor: "pointer", color: mode === "dark" ? "primary.dark" : "primary.light" }}}
-                  label={<Typography variant="body1">Back To Results</Typography>}>
+                   sx={{ mt: 2, bgcolor: mode === "dark" ? "primary.light" : "primary.dark", cursor: "pointer", '&:hover': { cursor: "pointer", color: mode === "dark" ? "primary.dark" : "primary.light" }}}
+                   label={<Typography variant="body1">Back To Results</Typography>}>
                 </Chip>
                 <Grid container item sx={{ width: "100%", height: "100%" }}>          
                     <Grid item sx={{ width: "50vw", height: "100%" }} xs={12} md={6}>
@@ -195,7 +196,7 @@ const ProductPage: React.FC<ProductPageProps> = ({
                                                   label: <Typography variant="subtitle1">
                                                             {greetingTitle}
                                                         </Typography>,
-                                                  component: <Box sx={{ height: "100%", width: "100%", }}>
+                                                    component: <Box sx={{ width: "100%", height: "100%", maxHeight: "40vh", overflow: "auto", scrollbarColor: mode === "dark" ? "#ECD3F0 #F5EBFF" : "#ECD3F0 #F5EBFF", scrollbarWidth: "thin", }}>
                                                                 <Paper sx={{ bgcolor: mode === "dark" ? "primary.dark" : "primary.light", width: "100%", height: "100%", display: "flex", justifyContent: "center" }}>
                                                                     {greeting}  
                                                                 </Paper>         
@@ -205,7 +206,7 @@ const ProductPage: React.FC<ProductPageProps> = ({
                                                   label: <Typography variant="subtitle1">
                                                                 {reviewTitle}
                                                          </Typography>, 
-                                                  component: <Box sx={{ width: "100%", height: "100%" }}>
+                                                  component: <Box sx={{ width: "100%", height: "100%", maxHeight: "40vh", overflow: "auto", scrollbarColor: mode === "dark" ? "#ECD3F0 #F5EBFF" : "#ECD3F0 #F5EBFF", scrollbarWidth: "thin", }}>
                                                                <Paper sx={{ bgcolor: mode === "dark"  ? "primary.dark": "primary.light" }}>
                                                                  <List>    
                                                                {reviews.map((rev, indx) => (
@@ -231,14 +232,14 @@ const ProductPage: React.FC<ProductPageProps> = ({
                                                                ))}
                                                                 </List>
                                                                </Paper>
-                                                             </Box> 
+                                                             </Box>
                                                 },
                                                 { 
                                                   icon: <CommentOutlined />,
                                                   label: <Typography variant="subtitle1">
                                                             {descriptionTitle}
                                                          </Typography>,
-                                                  component: <Box sx={{ width: "100%", height: "100%" }}> 
+                                                    component: <Box sx={{ width: "100%", height: "100%", maxHeight: "40vh", overflow: "auto", scrollbarColor: mode === "dark" ? "#ECD3F0 #F5EBFF" : "#ECD3F0 #F5EBFF", scrollbarWidth: "thin", }}> 
                                                       <Paper sx={{ bgcolor: mode === "dark" ? "primary.dark" : "primary.light", height: "100%", width: "100%" }}>
                                                            {description.map((desc, index) => (
                                                              <ListItem key={index}>
@@ -331,7 +332,7 @@ const ProductPage: React.FC<ProductPageProps> = ({
                                                 <Container sx={{
                                                       height: "55vh", 
                                                       overflow: "auto", 
-                                                      scrollbarColor: mode === "dark" ? "#47008F #F5EBFF" : "#F5EBFF #47008F",
+                                                      scrollbarColor: mode === "dark" ? "#ECD3F0 #F5EBFF" : "#ECD3F0 #F5EBFF", 
                                                       scrollbarWidth: "thin", 
                                                       }}
                                                       >

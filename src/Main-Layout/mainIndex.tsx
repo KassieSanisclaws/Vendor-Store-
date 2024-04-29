@@ -6,7 +6,7 @@ import { useThemeMode } from '../main';
 import { Container, Box, Grid, CssBaseline, ImageListItemBar, IconButton, CircularProgress, Stack } from '@mui/material';
 import { Info } from '@mui/icons-material';
 import ItemDataSample from "../JsonData/dataStructures";
-
+import '../App.css';
 
 export const MainIndex = () => {
     const { mode } = useThemeMode();
@@ -32,7 +32,7 @@ const handleItemClick = (id: number) => {
 return (
     <Container maxWidth="xl" sx={{ height: "100%", mt: 3, mb: 6 }}>    
         <Box sx={{ height: "100%" }}>
-            <Container sx={{ bgcolor: mode === "dark" ? "#47008F" : "#F5EBFF", height: "90vh", padding: "40px", width: "100%", overflow: "hidden", paddingBlock: "40px", borderRadius: "15px" }}>
+            <Container sx={{ bgcolor: mode === "dark" ? "primary.light" : "primary.dark", height: "90vh", padding: "40px", width: "100%", overflow: "hidden", paddingBlock: "40px", borderRadius: "15px" }}>
                 <CssBaseline />
                 <Box
                             sx={{
@@ -57,7 +57,7 @@ return (
                     <CarouselComponent images={itemData.map(item => item.img)} />
                 </Box>
                 <Box sx={{ width: "100%", flexGrow: 1, position: "relative", top: "1.5rem", }}>
-                    <Container sx={{ height: "50vh", padding: "40px", width: "100%", overflow: "hidden", paddingBlock: "40px", borderRadius: "15px", overflowY: "auto", scrollbarColor: mode === "dark" ? "#47008F #F5EBFF" : "#F5EBFF #47008F", scrollbarWidth: "thin", }}>     
+                    <Container sx={{ height: "50vh", padding: "40px", width: "100%", overflow: "hidden", paddingBlock: "40px", borderRadius: "15px", overflowY: "auto", scrollbarColor: mode === "dark" ? "#ECD3F0 #F5EBFF" : "#ECD3F0 #F5EBFF", scrollbarWidth: "thin", }}>     
                         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                             {itemData.map((itm, indx) => (
                                 <Grid item xs={3} sm={4} key={indx}>
