@@ -6,7 +6,7 @@ import { useThemeMode } from '../main';
 import { Container, Box, Grid, CssBaseline, ImageListItemBar, IconButton, CircularProgress, Stack } from '@mui/material';
 import { Info } from '@mui/icons-material';
 import ItemDataSample from "../JsonData/dataStructures";
-import '../App.css';
+// import '../App.css';
 
 export const MainIndex = () => {
     const { mode } = useThemeMode();

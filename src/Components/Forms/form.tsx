@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CssBaseline, Container, Box, TextField, Typography, Button, Snackbar, Alert, AlertColor } from '@mui/material';
+import { CssBaseline, Container, Box, TextField, Typography, Button, Snackbar, Alert, AlertColor, Grid } from '@mui/material';
 import MainImg from "../../assets/Pictures/Untitled2.png";
 
 
@@ -434,9 +434,9 @@ export function Form({
     }
 
     return (
-        <Container maxWidth="xl" sx={{ height: "100%", mt: 3, mb: 6 }} style={{ width: containerWidth }}>
-            <Box sx={{ height: "100%" }}>
-                <Container sx={{ bgcolor: mode === "dark" ? "#47008F" : "#F5EBFF", height: "90vh", padding: "40px", overflow: "hidden", paddingBlock: "40px", borderRadius: "15px" }}>
+        <Grid container sx={{ height: "100%", display: "flex", justifyContent: "center"}}>
+            <Box sx={{ height: "100%", margin: "3% 5% 7% 5%" }}>
+                <Box sx={{ bgcolor: mode === "dark" ? "#47008F" : "#F5EBFF", padding: "40px", overflow: "hidden", paddingBlock: "40px", borderRadius: "15px" }}>
                     <CssBaseline />
                     <Box sx={{  bgcolor: mode === "dark" ? "primary.dark" : "primary.light", 
                                        height: "100%", 
@@ -445,7 +445,23 @@ export function Form({
                                        borderRadius: "10px", 
                                        overflowY: "auto", 
                                        scrollbarColor: mode === "dark" ? "#47008F #F5EBFF" : "#F5EBFF #47008F", 
-                                       scrollbarWidth: "thin",  
+                                       scrollbarWidth: "thin",
+                                       maxWidth: "100%", 
+                                       '@media (min-width: 350px)': {
+                                        maxWidth: "350px", 
+                                        },
+                                        '@media (min-width:390px)': { 
+                                        maxWidth: "350px", 
+                                        },
+                                       '@media (min-width:420px)': { 
+                                        maxWidth: "350px", 
+                                       },
+                                        '@media (min-width:700px)': { 
+                                         maxWidth: "450px", 
+                                        },
+                                       '@media (min-width:960px)': { 
+                                       maxWidth: "600px", 
+                                       },
                                        }}>
                         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                             {icon}
@@ -828,8 +844,8 @@ export function Form({
 
                         </Box>
                     </Box>
-                </Container>
+                </Box>
             </Box>
-        </Container>
+        </Grid>
     )
 }
