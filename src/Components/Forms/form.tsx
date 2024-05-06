@@ -436,7 +436,7 @@ export function Form({
     return (
         <Grid container sx={{ height: "100%", display: "flex", justifyContent: "center"}}>
             <Box sx={{ height: "100%", margin: "3% 5% 7% 5%" }}>
-                <Box sx={{ bgcolor: mode === "dark" ? "#47008F" : "#F5EBFF", padding: "40px", overflow: "hidden", paddingBlock: "40px", borderRadius: "15px" }}>
+                <Box sx={{ bgcolor: mode === "dark" ? "primary.light" : "#F5EBFF", padding: "40px", overflow: "hidden", paddingBlock: "40px", borderRadius: "15px" }}>
                     <CssBaseline />
                     <Box sx={{  bgcolor: mode === "dark" ? "primary.dark" : "primary.light", 
                                        height: "100%", 
@@ -817,7 +817,7 @@ export function Form({
                                     type="submit"
                                     variant="contained"
                                     disabled={loading}
-                                    sx={{ mt: 3, mb: 2, width: "13rem", bgcolor: mode === "dark" ? "#A2F3D1" : "primary.light" }}
+                                    sx={{ mt: 3, mb: 2, width: "13rem", bgcolor: mode === "dark" ? "primary.light" : "primary.dark" }}
                                     onClick={formSubmitHandler}
                                 >
                                     <Typography variant="body1">
@@ -827,7 +827,7 @@ export function Form({
                             </form>
 
                             {includeRegisterLinkField && (
-                                <Container sx={{ display: "flex", flexDirection: "column", alignItems: "center", bgcolor: mode === "dark" ? "#A2F3D1" : "primary.light", width: "30%", padding: "10px" }}>
+                                <Container sx={{ display: "flex", flexDirection: "column", alignItems: "center", bgcolor: mode === "dark" ? "primary.dark" : "primary.light", width: "30%", mb: 2}}>
                                     <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                                         <Typography variant="subtitle1">
                                             Not a member?

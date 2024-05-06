@@ -35,7 +35,13 @@ export const CarouselComponent = ({ images }: { images: string[] }) => {
             <Carousel autoPlay={false} infiniteLoop selectedItem={index} showArrows={false}>
                 {images.map((image, i) => (
                     <Paper key={i}>
-                        <img src={image} alt={`Slide ${i}`} style={{ width: '100%', height: 'auto' }} />
+                        <img src={image} 
+                             alt={`Slide ${i}`} 
+                             style={{ 
+                                 width: '100%', 
+                                 height: 'auto',
+                                 }} 
+                                 />
                     </Paper>
                 ))}
             </Carousel>

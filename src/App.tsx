@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import './App.css';
 import { Footer } from './Main-Layout/footer';
 import { Header } from './Main-Layout/header';
 import { MainIndex } from './Main-Layout/mainIndex';
@@ -21,6 +22,7 @@ import { TestAccordionTwo } from './Components/Accordion/testAccordionTwo';
 import { BillableItemsTable } from './Components/Accordion/billableItemsTable';
 import SampleAccordion from './Components/Accordion/sampleAccordion';
 import { TestProductPage } from './Components/Products/testProductPage';
+
 
 function App() {
   return (

@@ -61,7 +61,7 @@ export const Header = () => {
                     onChange={toggleThemeMode} 
                     color="default"
                   />
-                  <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                  <Box sx={{ flexGrow: 0.5, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
                             aria-label="account of current user"
@@ -169,7 +169,7 @@ export const Header = () => {
                             </Link>
                         </Menu>
                     </Box>
-            </Toolbar>
+            </Toolbar> 
           </Container>
         </AppBar>
     )

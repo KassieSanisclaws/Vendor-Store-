@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { CarouselComponent } from '../Components/Carousel/carousel';
 import { useThemeMode } from '../main';
-import { Container, Box, Grid, CssBaseline, ImageListItemBar, IconButton, CircularProgress, Stack } from '@mui/material';
+import { Box, Grid, CssBaseline, ImageListItemBar, IconButton, CircularProgress, Stack } from '@mui/material';
 import { Info } from '@mui/icons-material';
 import ItemDataSample from "../JsonData/dataStructures";
 // import '../App.css';
@@ -30,9 +30,25 @@ const handleItemClick = (id: number) => {
     }, [])
 
 return (
-    <Container maxWidth="xl" sx={{ height: "100%", mt: 3, mb: 6 }}>    
-        <Box sx={{ height: "100%" }}>
-            <Container sx={{ bgcolor: mode === "dark" ? "primary.light" : "primary.dark", height: "90vh", padding: "40px", width: "100%", overflow: "hidden", paddingBlock: "40px", borderRadius: "15px" }}>
+    <Grid container 
+          maxWidth="xl" 
+          sx={{ 
+               height: "100%", 
+               width: "100%", 
+               margin: "auto",
+              }}
+            >    
+        <Grid item sx={{ height: "100%" }}
+                   >
+            <Box sx={{ bgcolor: mode === "dark" ? "primary.light" : "primary.dark", 
+                       height: "100%", 
+                       padding: "15px", 
+                       width: "100%", 
+                       overflow: "hidden", 
+                       borderRadius: "15px", 
+                       margin: "0 0 1% 0"
+                       }}
+                       >
                 <CssBaseline />
                 <Box
                             sx={{
@@ -53,12 +69,67 @@ return (
                             </Stack>
                               )}
                           </Box>
-                <Box sx={{ height: "35vh", width: "100%", overflow: "hidden", borderRadius: "10px" }}>
+                <Box sx={{ 
+                       height: "100%", 
+                       width: "100%", 
+                       overflow: "hidden", 
+                       borderRadius: "10px",
+                       maxWidth: "100%",
+                       '@media (min-width: 250px)': {
+                            height: "60%",
+                       },
+                       '@media (min-width: 350px)': {
+                            height: "60%",
+                       },
+                       '@media (min-width: 450px)': {
+                            height: "60%",
+                          },
+                        '@media (min-width: 530px)': {
+                            height: "60%",
+                          },
+                       '@media (min-width: 600px)': {
+                            height: "60%",
+                          },
+                        '@media (min-width: 1410px)': {
+                            height: "65%",
+                          },
+                       }}
+                       >
                     <CarouselComponent images={itemData.map(item => item.img)} />
                 </Box>
-                <Box sx={{ width: "100%", flexGrow: 1, position: "relative", top: "1.5rem", }}>
-                    <Container sx={{ height: "50vh", padding: "40px", width: "100%", overflow: "hidden", paddingBlock: "40px", borderRadius: "15px", overflowY: "auto", scrollbarColor: mode === "dark" ? "#ECD3F0 #F5EBFF" : "#ECD3F0 #F5EBFF", scrollbarWidth: "thin", }}>     
-                        <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                <Box sx={{ width: "100%", flexGrow: 1, position: "relative" }}>
+                    <Box sx={{ 
+                                    height: "69vh", 
+                                    width: "100%", 
+                                    overflow: "hidden", 
+                                    borderRadius: "15px", 
+                                    overflowY: "auto", 
+                                    "&::-webkit-scrollbar": {
+                                       width: "9px",
+                                    },
+                                    "&::-webkit-scrollbar-track": {
+                                        background: mode === "dark" ? "#AA98A9 #F5EBFF" : "#AA98A9 #F5EBFF", // Background color of the track
+                                    },
+                                    "&::-webkit-scrollbar-thumb": {
+                                       background: "#CF9FF", // Color of the scroll thumb
+                                       borderRadius: "10px", // Roundness of the scroll thumb
+                                    },
+                                    "&::-webkit-scrollbar-thumb:hover": {
+                                       background: "#AA98A9", // Color on hover
+                                    },
+                                    "@media (max-width: 450px)": {
+                                       marginTop: "-3.5rem"
+                                    },
+                                    }}
+                                    >     
+                        <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}
+                                 sx={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        height: "100%",
+                                   }}
+                                >
                             {itemData.map((itm, indx) => (
                                 <Grid item xs={3} sm={4} key={indx}>
                                    <Link to={`/product/${indx + 1}`}>
@@ -111,11 +182,11 @@ return (
                                 </Grid>
                             ))}
                         </Grid>
-                    </Container>
+                    </Box>
                 </Box>
 
-            </Container>
-        </Box>
-    </Container>
+            </Box>
+        </Grid>
+    </Grid>
  )
 }
