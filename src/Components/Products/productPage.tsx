@@ -141,12 +141,12 @@ const ProductPage: React.FC<ProductPageProps> = ({
     
     return (
         <Container maxWidth="xl">
-            <Grid container sx={{ height: "100%", width: "100%", mt: .5 }} spacing={3} mb={3}>
+            <Grid container sx={{ height: "100%", width: "100%", }} spacing={3} mb={3}>
                 <Chip
                    icon={<ArrowBackIosNew/>}
                    component={Link}
                    to="/"
-                   sx={{ mt: 2, bgcolor: mode === "dark" ? "primary.light" : "primary.dark", cursor: "pointer", '&:hover': { cursor: "pointer", color: mode === "dark" ? "primary.dark" : "primary.light" }}}
+                   sx={{ bgcolor: mode === "dark" ? "primary.light" : "primary.dark", cursor: "pointer", '&:hover': { cursor: "pointer", color: mode === "dark" ? "primary.dark" : "primary.light" }}}
                    label={<Typography variant="body1">Back To Results</Typography>}>
                 </Chip>
                 <Grid container item sx={{ width: "100%", height: "100%" }}>          
@@ -328,12 +328,20 @@ const ProductPage: React.FC<ProductPageProps> = ({
                                                     </Stack>
                                                 )}
                                             </Box>
-                                            <Box sx={{ overflow: "hidden", width: "35vw", height: "100%" }}>
-                                                <Container sx={{
+                                            <Box sx={{ overflow: "hidden", width: "100%", height: "100%" }}>
+                                                <Box sx={{
                                                       height: "55vh", 
-                                                      overflow: "auto", 
-                                                      scrollbarColor: mode === "dark" ? "#ECD3F0 #F5EBFF" : "#ECD3F0 #F5EBFF", 
-                                                      scrollbarWidth: "thin", 
+                                                      overflow: "auto",
+                                                    "&::-webkit-scrollbar-track": {
+                                                        background: mode === "dark" ? "#AA98A9 #F5EBFF" : "#AA98A9 #F5EBFF", // Background color of the track
+                                                    },
+                                                    "&::-webkit-scrollbar-thumb": {
+                                                        background: "#CF9FF", // Color of the scroll thumb
+                                                        borderRadius: "10px", // Roundness of the scroll thumb
+                                                    },
+                                                    "&::-webkit-scrollbar-thumb:hover": {
+                                                        background: "#AA98A9", // Color on hover
+                                                    }, 
                                                       }}
                                                       >
                                                 <Paper sx={{ width: '100%', bgcolor: mode === "dark" ? "primary.dark" : "primary.light", borderRadius: "10px", display: "flex", justifyContent: "center", padding: "8px"}}>
@@ -343,7 +351,7 @@ const ProductPage: React.FC<ProductPageProps> = ({
                                                  isLoading={isLoading}
                                                />
                                                </Paper>
-                                              </Container> 
+                                              </Box> 
                                             </Box>
                                             </Paper>
                                         </ListItem>

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { CssBaseline, Container, Box, TextField, Typography, Button, Snackbar, Alert, AlertColor, Grid } from '@mui/material';
 import MainImg from "../../assets/Pictures/Untitled2.png";
 
-
 export interface LoginFormData {
     email: string;
     password: string;
@@ -93,7 +92,6 @@ export function Form({
     includeRegisterLinkField = false,
     includeImageField = false,
     formType,
-    containerWidth = "35%",
     includeSnackbarPopup = false,
     handleSnackbarClosed,
     snackbarState,

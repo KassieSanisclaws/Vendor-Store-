@@ -223,9 +223,13 @@ function PageLayout({
     }
 
     return (
-        <Grid container spacing={2} mb={2} padding={4}>
-            <Grid item xs={8}>
-                <Container>
+        <Grid container spacing={2} mb={2} sx={{padding: 1 }}>
+            <Grid item xs={8}
+                 sx={{
+                     height: "100%",
+                     weight: "100%", 
+                 }}>
+                <Box sx={{ }}>
                     <Box
                         sx={{
                             bgcolor: mode === "dark" ? "primary.dark" : "primary.light",
@@ -233,8 +237,19 @@ function PageLayout({
                             overflow: "hidden",
                             borderRadius: "10px",
                             overflowY: "auto",
-                            scrollbarColor: mode === "dark" ? "#47008F #F5EBFF" : "#F5EBFF #47008F",
-                            scrollbarWidth: "thin",
+                            "&::-webkit-scrollbar": {
+                                width: "9px",
+                            },
+                            "&::-webkit-scrollbar-track": {
+                                background: mode === "dark" ? "#AA98A9 #F5EBFF" : "#AA98A9 #F5EBFF", // Background color of the track
+                            },
+                            "&::-webkit-scrollbar-thumb": {
+                                background: "#CF9FF", // Color of the scroll thumb
+                                borderRadius: "10px", // Roundness of the scroll thumb
+                            },
+                            "&::-webkit-scrollbar-thumb:hover": {
+                                background: "#AA98A9", // Color on hover
+                            },
                         }}
                     >
                         <Grid container sx={{ display: "flex", justifyContent: "space-evenly", padding: "20px" }}>         
@@ -359,8 +374,19 @@ function PageLayout({
                             overflow: "hidden",
                             borderRadius: "10px",
                             overflowY: "auto",
-                            scrollbarColor: mode === "dark" ? "#47008F #F5EBFF" : "#F5EBFF #47008F",
-                            scrollbarWidth: "thin",
+                            "&::-webkit-scrollbar": {
+                                width: "9px",
+                            },
+                            "&::-webkit-scrollbar-track": {
+                                background: mode === "dark" ? "#AA98A9 #F5EBFF" : "#AA98A9 #F5EBFF", // Background color of the track
+                            },
+                            "&::-webkit-scrollbar-thumb": {
+                                background: "#CF9FF", // Color of the scroll thumb
+                                borderRadius: "10px", // Roundness of the scroll thumb
+                            },
+                            "&::-webkit-scrollbar-thumb:hover": {
+                                background: "#AA98A9", // Color on hover
+                            },
                         }}
                     >
                         <Grid container padding={2} sx={{ display: "flex", justifyContent: "space-evenly" }}>             
@@ -583,7 +609,7 @@ function PageLayout({
                             </Grid>
                         </Grid>
                     </Box>
-                </Container>
+                </Box>
             </Grid>
             <Grid item xs={4}>
                 <Box
@@ -593,8 +619,19 @@ function PageLayout({
                         overflow: "hidden",
                         borderRadius: "10px",
                         overflowY: "auto",
-                        scrollbarColor: mode === "dark" ? "#47008F #F5EBFF" : "#F5EBFF #47008F",
-                        scrollbarWidth: "thin",
+                        "&::-webkit-scrollbar": {
+                            width: "9px",
+                        },
+                        "&::-webkit-scrollbar-track": {
+                            background: mode === "dark" ? "#AA98A9 #F5EBFF" : "#AA98A9 #F5EBFF", // Background color of the track
+                        },
+                        "&::-webkit-scrollbar-thumb": {
+                            background: "#CF9FF", // Color of the scroll thumb
+                            borderRadius: "10px", // Roundness of the scroll thumb
+                        },
+                        "&::-webkit-scrollbar-thumb:hover": {
+                            background: "#AA98A9", // Color on hover
+                        },
                     }}
                 >
                     <Grid container rowSpacing={1}>
@@ -608,8 +645,19 @@ function PageLayout({
                                             overflow: "hidden",
                                             borderRadius: "10px",
                                             overflowY: "auto",
-                                            scrollbarColor: mode === "dark" ? "#47008F #F5EBFF" : "#F5EBFF #47008F",
-                                            scrollbarWidth: "thin",
+                                            "&::-webkit-scrollbar": {
+                                                width: "9px",
+                                            },
+                                            "&::-webkit-scrollbar-track": {
+                                                background: mode === "dark" ? "#AA98A9 #F5EBFF" : "#AA98A9 #F5EBFF", // Background color of the track
+                                            },
+                                            "&::-webkit-scrollbar-thumb": {
+                                                background: "#CF9FF", // Color of the scroll thumb
+                                                borderRadius: "10px", // Roundness of the scroll thumb
+                                            },
+                                            "&::-webkit-scrollbar-thumb:hover": {
+                                                background: "#AA98A9", // Color on hover
+                                            },
                                             mt: 1,
                                         }}
                                     >
@@ -671,8 +719,19 @@ function PageLayout({
                                             overflow: "hidden",
                                             borderRadius: "10px",
                                             overflowY: "auto",
-                                            scrollbarColor: mode === "dark" ? "#47008F #F5EBFF" : "#F5EBFF #47008F",
-                                            scrollbarWidth: "thin",
+                                            "&::-webkit-scrollbar": {
+                                                width: "9px",
+                                            },
+                                            "&::-webkit-scrollbar-track": {
+                                                background: mode === "dark" ? "#AA98A9 #F5EBFF" : "#AA98A9 #F5EBFF", // Background color of the track
+                                            },
+                                            "&::-webkit-scrollbar-thumb": {
+                                                background: "#CF9FF", // Color of the scroll thumb
+                                                borderRadius: "10px", // Roundness of the scroll thumb
+                                            },
+                                            "&::-webkit-scrollbar-thumb:hover": {
+                                                background: "#AA98A9", // Color on hover
+                                            },
                                             mt: 1
                                         }}
                                     >
@@ -702,9 +761,7 @@ function PageLayout({
                                           </Grid>
                                         )}
                                         {includeAboutUsMediaVideo && (
-                                            <Box sx={{ width: '100%', height: "100%", padding: "10px", }}>
                                                 <VideoPlayer videoUrl={videoUrl ?? ''} />
-                                            </Box>      
                                         )}
                                   </Box>
                                 {includeAdditionalActions && (
@@ -715,8 +772,19 @@ function PageLayout({
                                               overflow: "hidden",
                                               borderRadius: "10px",
                                               overflowY: "auto",
-                                              scrollbarColor: mode === "dark" ? "#47008F #F5EBFF" : "#F5EBFF #47008F",
-                                              scrollbarWidth: "thin",
+                                                "&::-webkit-scrollbar": {
+                                                    width: "9px",
+                                                },
+                                                "&::-webkit-scrollbar-track": {
+                                                    background: mode === "dark" ? "#AA98A9 #F5EBFF" : "#AA98A9 #F5EBFF", // Background color of the track
+                                                },
+                                                "&::-webkit-scrollbar-thumb": {
+                                                    background: "#CF9FF", // Color of the scroll thumb
+                                                    borderRadius: "10px", // Roundness of the scroll thumb
+                                                },
+                                                "&::-webkit-scrollbar-thumb:hover": {
+                                                    background: "#AA98A9", // Color on hover
+                                                },
                                               mt: 1
                                            }}
                                          >
@@ -744,8 +812,19 @@ function PageLayout({
                                     overflow: "hidden",
                                     borderRadius: "10px",
                                     overflowY: "auto",
-                                    scrollbarColor: mode === "dark" ? "#47008F #F5EBFF" : "#F5EBFF #47008F",
-                                    scrollbarWidth: "thin",
+                                    "&::-webkit-scrollbar": {
+                                        width: "9px",
+                                    },
+                                    "&::-webkit-scrollbar-track": {
+                                        background: mode === "dark" ? "#AA98A9 #F5EBFF" : "#AA98A9 #F5EBFF", // Background color of the track
+                                    },
+                                    "&::-webkit-scrollbar-thumb": {
+                                        background: "#CF9FF", // Color of the scroll thumb
+                                        borderRadius: "10px", // Roundness of the scroll thumb
+                                    },
+                                    "&::-webkit-scrollbar-thumb:hover": {
+                                        background: "#AA98A9", // Color on hover
+                                    },
                                     mt: 1
                                 }}
                             >
@@ -793,7 +872,23 @@ function PageLayout({
                                                     <Typography variant='h4'>{titleBox10}</Typography>
                                                 </Box>
                                                 <Paper sx={{ width: '100%', overflow: 'hidden', }}>
-                                                <TableContainer sx={{ maxHeight: 440, scrollbarColor: mode === "dark" ? "#47008F #F5EBFF" : "#F5EBFF #47008F", scrollbarWidth: "thin", }}>
+                                                <TableContainer sx={{ 
+                                                                     maxHeight: 440, 
+                                                                     "&::-webkit-scrollbar": {
+                                                                        width: "9px",
+                                                                     },
+                                                                     "&::-webkit-scrollbar-track": {
+                                                                        background: mode === "dark" ? "#AA98A9 #F5EBFF" : "#AA98A9 #F5EBFF", // Background color of the track
+                                                                     },
+                                                                     "&::-webkit-scrollbar-thumb": {
+                                                                        background: "#CF9FF", // Color of the scroll thumb
+                                                                        borderRadius: "10px", // Roundness of the scroll thumb
+                                                                     },
+                                                                     "&::-webkit-scrollbar-thumb:hover": {
+                                                                        background: "#AA98A9", // Color on hover
+                                                                     },
+                                                                     }}
+                                                                     >
                                                         <Table stickyHeader aria-label="sticky table">
                                                             <TableHead>
                                                                 <TableRow>

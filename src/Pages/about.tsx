@@ -8,7 +8,7 @@ import AboutUsCarouselData  from "../JsonData/dataStructures";
 export const About = () => {
     const { mode } = useThemeMode();
     const [loading, setLoading] = useState<boolean>(true);
-    const images = AboutUsCarouselData.AboutUsCarouselData.map((item: any) => item.img);
+    const images = AboutUsCarouselData.AboutUsCarouselData;
 
     const handleEditPicture = (e: any) => {
         e.preventDefault();
