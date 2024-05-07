@@ -65,7 +65,7 @@ export const About = () => {
               buttonsData={buttonsData} 
               reviews={reviews}
               titleBox2='About Items'
-              titleBox4='About Reviews'
+              titleBox4='About Search table'
               titleBox9='About Store Items'
               includeTitleBox2={true}
               includeTitleBox4={true}

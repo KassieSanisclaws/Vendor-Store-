@@ -229,11 +229,11 @@ function PageLayout({
                      height: "100%",
                      weight: "100%", 
                  }}>
-                <Box sx={{ }}>
+                <Box>
                     <Box
                         sx={{
                             bgcolor: mode === "dark" ? "primary.dark" : "primary.light",
-                            height: "55.5vh",
+                            height: "100%",
                             overflow: "hidden",
                             borderRadius: "10px",
                             overflowY: "auto",
@@ -253,7 +253,16 @@ function PageLayout({
                         }}
                     >
                         <Grid container sx={{ display: "flex", justifyContent: "space-evenly", padding: "20px" }}>         
-                            <Grid item sx={{ height: "100%", width: "100%", bgcolor: mode === "dark" ? "primary.light" : "primary.dark", borderRadius: "10px" }} xs={3.5}>
+                            <Grid item sx={{ height: "100%", 
+                                             width: "100%", 
+                                             bgcolor: mode === "dark" ? "primary.light" : "primary.dark", 
+                                             borderRadius: "10px", 
+                                             }} 
+                                             xs={12}
+                                             sm={12}
+                                             md={3.5}
+                                             mb={2}
+                                             >
                                 {includeSnackbarPopup && (
                                     <Snackbar
                                         open={snackbarState?.active}
@@ -284,7 +293,7 @@ function PageLayout({
                                         </Box>
                                     )}
                                     {includeButtonsActions && (
-                                      <Box sx={{ display: "flex", flexDirection: "column", mt: 1 }}>
+                                      <Box sx={{ display: "flex", flexDirection: "column", padding: "7px" }}>
                                         {buttonsData?.map((button, indx) => (
                                             <React.Fragment key={indx}>
                                                 {('to' in button) && button.to ? (
@@ -311,7 +320,16 @@ function PageLayout({
                                         </Box>
                                       )}
                             </Grid>
-                            <Grid item padding={1} sx={{ height: "100%", width: "100%", bgcolor: mode === "dark" ? "primary.light" : "primary.dark", borderRadius: "10px" }} xs={8}>
+                            <Grid item padding={1} 
+                                      sx={{ height: "100%", 
+                                            width: "100%", 
+                                            bgcolor: mode === "dark" ? "primary.light" : "primary.dark", 
+                                            borderRadius: "10px", 
+                                           }} 
+                                            xs={12}
+                                            sm={12}
+                                            md={8} 
+                                            >
                                 {includeTitleBox1 && (
                                   <Box sx={{ display: 'flex', justifyContent: "center" }}>
                                      <Typography variant='h5'>{titleBox1}</Typography>
@@ -370,7 +388,7 @@ function PageLayout({
                         sx={{
                             mt: 2,
                             bgcolor: mode === "dark" ? "primary.dark" : "primary.light",
-                            height: "55vh",
+                            height: "65%",
                             overflow: "hidden",
                             borderRadius: "10px",
                             overflowY: "auto",
@@ -389,53 +407,34 @@ function PageLayout({
                             },
                         }}
                     >
-                        <Grid container padding={2} sx={{ display: "flex", justifyContent: "space-evenly" }}>             
-                            <Grid item sx={{ height: "100%", width: "100%", bgcolor: mode === "dark" ? "primary.light" : "primary.dark", borderRadius: "10px" }} xs={12} sm={4}>
-                               {includeTitleBox2 && (
-                                 <Box sx={{ display: 'flex', justifyContent: "center", mt: 1 }}>
-                                    <Typography variant='h5'>{titleBox2}</Typography>
-                                </Box>
-                               )}
-                               {includeNewsFeed && (
-                                   <Box sx={{ height: "100%", width: "100%", mb: 2 }}>
-                                     <Container sx={{ width: "100%", height: "100%" }}>
-                                        {dataSample.map((_, idx: number) => (
-                                            <Accordion
-                                                key={idx}
-                                                expanded={newsFeedExpandedState[idx]}
-                                                onChange={() => handleExpansion?(idx) : null}
-                                                slots={{ transition: Fade as AccordionSlots['transition'] }}
-                                                slotProps={{ transition: { timeout: 400 } }}
-                                                sx={{
-                                                    '& .MuiAccordion-region': { height: newsFeedExpandedState ? 'auto' : 0 },
-                                                    '& .MuiAccordionDetails-root': { display: newsFeedExpandedState ? 'block' : 'none' },
-                                                }}
-                                                >
-                                                <AccordionSummary
-                                                    expandIcon={<ExpandMore />}
-                                                    aria-controls={`panel${idx + 1}-content`}
-                                                    id={`panel${idx + 1}-header`}
-                                                >
-                                                    <Checkbox
-                                                        checked={newsFeedExpandedState[idx]}
-                                                        tabIndex={-1}
-                                                        disableRipple
-                                                        onChange={() => handleExpansion?(idx) : null} // Toggle the expansion state
-                                                    />
-                                                    <Typography>Title {idx + 1}</Typography>
-                                                </AccordionSummary>
-                                                <AccordionDetails>
-                                                    <Typography>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                                        malesuada lacus ex, sit amet blandit leo lobortis eget.
-                                                    </Typography>
-                                                </AccordionDetails>
-                                            </Accordion>
-                                        ))}
-                                    </Container>
-                                    </Box>
-                               )}
+                        <Grid container padding={2}
+                                        sx={{ display: "flex", 
+                                              justifyContent: "space-evenly", 
+                                              gap: 2,
+
+                                            }}
+                                            >             
+                            <Grid item sx={{ height: "100%", 
+                                             width: "100%", 
+                                             bgcolor: mode === "dark" ? "primary.light" : "primary.dark", 
+                                             borderRadius: "10px",
+                                             overflow: "hidden",
+                                             }} 
+                                             xs={12} 
+                                             sm={12}
+                                             md={4}
+                                             >
                                {includePieGraph && (
+                                <Box
+                                  sx={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    "@media (min-width: 1250px)": {
+                                        height: "50vh",
+                                    },
+                                  }}
+                                 >
                                  <PieChart
                                     series={[
                                         {
@@ -452,45 +451,24 @@ function PageLayout({
                                     }}
                                     {...size}
                                 />
-                               )}
-                              {includeAboutUsTopSellers && (
-                                       <Box sx={{ overflow: "hidden", width: "100%", height: "100%", padding: "20px" }}>
-                                        <ImageList>
-                                            <ImageListItem key="Subheader" cols={2}>
-                                                <ListSubheader component="div">December</ListSubheader>
-                                            </ImageListItem>
-                                            {itemDataTwo.map((item) => (
-                                                <ImageListItem key={item.img}>
-                                                    <img
-                                                        srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                                                        src={`${item.img}?w=248&fit=crop&auto=format`}
-                                                        alt={item.title}
-                                                        loading="lazy"
-                                                    />
-                                                    <ImageListItemBar
-                                                        title={item.title}
-                                                        subtitle={item.author}
-                                                        actionIcon={
-                                                            <IconButton
-                                                                sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-                                                                aria-label={`info about ${item.title}`}
-                                                            >
-                                                                <InfoIcon />
-                                                            </IconButton>
-                                                        }
-                                                    />
-                                                </ImageListItem>
-                                            ))}
-                                        </ImageList>
                                 </Box>
-                              )}
+                               )}  
                               {includeAdminTabPanel && (
                                 <Box sx={{ overflow: "hidden", width: "100%", height: "100%", padding: "20px" }}>
                                     <TabComponentTwo  tabs={tabs} />
                                 </Box>
-                              )}          
+                              )}         
                             </Grid>
-                            <Grid item sx={{ height: "100%", width: "100%", bgcolor: mode === "dark" ? "primary.light" : "primary.dark", borderRadius: "10px" }} xs={12} sm={7.5}>
+                            <Grid item sx={{ height: "100%", 
+                                             width: "100%", 
+                                             bgcolor: mode === "dark" ? "primary.light" : "primary.dark", 
+                                             borderRadius: "10px",
+                                             overflow: "hidden",
+                                             }} 
+                                             xs={12} 
+                                             sm={12}
+                                             md={includeAboutUsSearchTable || includeBasedOnUserInterest ? 10 : 6}
+                                             >
                               {includeTitleBox4 && (
                                  <Box sx={{ display: 'flex', justifyContent: "center", mt: 1 }}>
                                     <Typography variant='h5'>{titleBox4}</Typography>
@@ -510,15 +488,41 @@ function PageLayout({
                                 />
                                )}
                                {includeBasedOnUserInterest && (
-                                    <Box sx={{ overflow: "auto", padding: "10px", ml: 1 }}>    
+                                    <Grid container xs={12} sm={12} 
+                                          sx={{
+                                              padding: "10px",
+                                              "&::-webkit-scrollbar": {
+                                                  width: "9px",
+                                              },
+                                              "&::-webkit-scrollbar-track": {
+                                                  background: mode === "dark" ? "#AA98A9 #F5EBFF" : "#AA98A9 #F5EBFF", // Background color of the track
+                                              },
+                                              "&::-webkit-scrollbar-thumb": {
+                                                  background: "#CF9FF", // Color of the scroll thumb
+                                                  borderRadius: "10px", // Roundness of the scroll thumb
+                                              },
+                                              "&::-webkit-scrollbar-thumb:hover": {
+                                                  background: "#AA98A9", // Color on hover
+                                              },   
+                                          }}
+                                           >    
                                             {Array.from({ length: Math.ceil(dataSample.length / 3) }).map((_, rowIndx) => {
                                                 return (
-                                                    <Box sx={{ display: "flex", width: "100%", height: "100%" }}>
-                                                        {[0, 1, 2].map((colIndx) => {
-                                                            const dataIndx = colIndx * 3 + rowIndx;
+                                                    <Box sx={{ display: "flex", 
+                                                               width: "100%", 
+                                                               height: "100%",
+                                                               overflow: "hidden",
+                                                              }}
+                                                               >
+                                                        {[0, 1, 2, 3,].map((colIndx) => {
+                                                            const dataIndx = colIndx * 2 + rowIndx;
                                                             const item = data?.[dataIndx];
                                                             return (
-                                                                <Grid item key={dataIndx}>
+                                                                <Grid item key={dataIndx}
+                                                                      sx={{
+                                                                       margin: "auto"
+                                                                      }}
+                                                                      >
                                                                     <Card sx={{ width: 210, marginRight: 0.5, my: 5 }}>
                                                                         {item ? (
                                                                             <img
@@ -554,10 +558,14 @@ function PageLayout({
                                                     </Box>
                                                 );
                                             })}
-                                    </Box>
+                                    </Grid>
                                )}
                                {includeAboutUsSearchTable && (
-                                <Box sx={{ width: "100%", height: "100%", padding: "10px" }}>
+                                <Box sx={{ width: "100%", 
+                                           height: "100%", 
+                                           padding: "10px", 
+                                         }}
+                                           >
                                     <TableContainer component={Paper}>
                                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
                                             <TableHead>
@@ -636,12 +644,14 @@ function PageLayout({
                 >
                     <Grid container rowSpacing={1}>
                         <Grid item sx={{ height: "100%", width: "100%" }} padding={1}>
-                            <Grid container spacing={1} mb={2}>
-                                <Grid item xs={8}>          
+                            <Grid container spacing={1} 
+                                            mb={2}
+                                            >
+                                <Grid item xs={12} sm={12} md={8}>          
                                     <Box
                                         sx={{
                                             bgcolor: mode === "dark" ? "primary.light" : "primary.dark",
-                                            height: "50vh",
+                                            height: "40vh",
                                             overflow: "hidden",
                                             borderRadius: "10px",
                                             overflowY: "auto",
@@ -709,9 +719,8 @@ function PageLayout({
                                         </Box>
                                             )}   
                                     </Box>
-                                </Grid>
-                            
-                                <Grid item xs={4}>        
+                                </Grid>    
+                                <Grid item xs={12} sm={12} md={4}>        
                                     <Box
                                         sx={{
                                             bgcolor: mode === "dark" ? "primary.light" : "primary.dark",
@@ -732,7 +741,7 @@ function PageLayout({
                                             "&::-webkit-scrollbar-thumb:hover": {
                                                 background: "#AA98A9", // Color on hover
                                             },
-                                            mt: 1
+                                            mt: 1,
                                         }}
                                     >
                                      {includeTitleBox7 && (
@@ -804,10 +813,16 @@ function PageLayout({
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item sx={{ height: "100%", width: "100%", }} padding={2}>
+                        <Grid item sx={{ height: "100%", 
+                                         width: "95%", 
+                                         bgcolor: mode === "dark" ? "primary.light" : "primary.dark", 
+                                         margin: "auto",
+                                         borderRadius: "10px",
+                                         mb: 2,
+                                        }} 
+                                         >
                             <Box
-                                sx={{
-                                    bgcolor: mode === "dark" ? "primary.light" : "primary.dark",
+                                sx={{     
                                     height: "100%",
                                     overflow: "hidden",
                                     borderRadius: "10px",
@@ -825,19 +840,135 @@ function PageLayout({
                                     "&::-webkit-scrollbar-thumb:hover": {
                                         background: "#AA98A9", // Color on hover
                                     },
-                                    mt: 1
+                                    mt: 1,
                                 }}
                             >
-                            <Container sx={{ width: "100%", height: "100%" }}>
+                            {includeTitleBox2 && (
+                                 <Box sx={{ display: 'flex', justifyContent: "center", mt: 1 }}>
+                                    <Typography variant='h5'>{titleBox2}</Typography>
+                                </Box>
+                               )}
+                            {includeNewsFeed && (
+                                   <Box sx={{ height: "50vh", 
+                                              width: "100%", 
+                                              mb: 2, 
+                                              overflow: "hidden",
+                                              overflowY: "auto",
+                                              "&::-webkit-scrollbar": {
+                                              width: "9px",
+                                              },
+                                              "&::-webkit-scrollbar-track": {
+                                              background: mode === "dark" ? "#AA98A9 #F5EBFF" : "#AA98A9 #F5EBFF", // Background color of the track
+                                              },
+                                              "&::-webkit-scrollbar-thumb": {
+                                              background: "#CF9FF", // Color of the scroll thumb
+                                              borderRadius: "10px", // Roundness of the scroll thumb
+                                              },
+                                              "&::-webkit-scrollbar-thumb:hover": {
+                                              background: "#AA98A9", // Color on hover
+                                              },
+                                              mt: 2, 
+                                             }}
+                                              >
+                                     <Container sx={{ width: "100%", 
+                                                      height: "100%" 
+                                                      }}
+                                                      >
+                                        {dataSample.map((_, idx: number) => (
+                                            <Accordion
+                                                key={idx}
+                                                expanded={newsFeedExpandedState[idx]}
+                                                onChange={() => handleExpansion?(idx) : null}
+                                                slots={{ transition: Fade as AccordionSlots['transition'] }}
+                                                slotProps={{ transition: { timeout: 400 } }}
+                                                sx={{
+                                                    '& .MuiAccordion-region': { height: newsFeedExpandedState ? 'auto' : 0 },
+                                                    '& .MuiAccordionDetails-root': { display: newsFeedExpandedState ? 'block' : 'none',
+                                                     },
+                                                }}
+                                                >
+                                                <AccordionSummary
+                                                    expandIcon={<ExpandMore />}
+                                                    aria-controls={`panel${idx + 1}-content`}
+                                                    id={`panel${idx + 1}-header`}
+                                                >
+                                                    <Checkbox
+                                                        checked={newsFeedExpandedState[idx]}
+                                                        tabIndex={-1}
+                                                        disableRipple
+                                                        onChange={() => handleExpansion?(idx) : null} // Toggle the expansion state
+                                                    />
+                                                    <Typography>Title {idx + 1}</Typography>
+                                                </AccordionSummary>
+                                                <AccordionDetails>
+                                                    <Typography>
+                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                                                        malesuada lacus ex, sit amet blandit leo lobortis eget.
+                                                    </Typography>
+                                                </AccordionDetails>
+                                            </Accordion>
+                                        ))}
+                                    </Container>
+                                    </Box>
+                               )}
+                            {includeAboutUsTopSellers && (   
+                                       <Box sx={{ overflow: "hidden", 
+                                                  width: "100%", 
+                                                  height: "70vh", 
+                                                  overflowY: "auto",
+                                                  "&::-webkit-scrollbar": {
+                                                    width: "9px",
+                                                  },
+                                                  "&::-webkit-scrollbar-track": {
+                                                    background: mode === "dark" ? "#AA98A9 #F5EBFF" : "#AA98A9 #F5EBFF", // Background color of the track
+                                                  },
+                                                  "&::-webkit-scrollbar-thumb": {
+                                                    background: "#CF9FF", // Color of the scroll thumb
+                                                    borderRadius: "10px", // Roundness of the scroll thumb
+                                                  },
+                                                  "&::-webkit-scrollbar-thumb:hover": {
+                                                    background: "#AA98A9", // Color on hover
+                                                  },
+                                                  }}
+                                                  >
+                                        <ImageList>
+                                            <ImageListItem key="Subheader" cols={2}>
+                                                <ListSubheader component="div">December</ListSubheader>
+                                            </ImageListItem>
+                                            {itemDataTwo.map((item) => (
+                                                <ImageListItem key={item.img}>
+                                                    <img
+                                                        srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                                        src={`${item.img}?w=248&fit=crop&auto=format`}
+                                                        alt={item.title}
+                                                        loading="lazy"
+                                                    />
+                                                    <ImageListItemBar
+                                                        title={item.title}
+                                                        subtitle={item.author}
+                                                        actionIcon={
+                                                            <IconButton
+                                                                sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
+                                                                aria-label={`info about ${item.title}`}
+                                                            >
+                                                                <InfoIcon />
+                                                            </IconButton>
+                                                        }
+                                                    />
+                                                </ImageListItem>
+                                            ))}
+                                        </ImageList>
+                                </Box>
+                              )}
                                {includeTitleBox9 && (
-                                   <Box sx={{ display: 'flex', justifyContent: "center", mt: 2}}>
+                                   <Box sx={{ display: 'flex', justifyContent: "center", mt: 2, margin: "auto"}}>
                                       <Typography variant='h5'>{titleBox9}</Typography>
                                    </Box>
                                 )}
                             {includeStoreReviews && (
-                                <List sx={{ width: '100%', }}>
+                                <List sx={{ width: '100%', height: "100%", mt: 1, overflow: "hidden", margin: "auto" }} >
                                     {reviews?.map((review, indx) => (
-                                        <React.Fragment key={indx}>
+                                        <Box key={indx}>
                                             <ListItem alignItems="flex-start">
                                                 <ListItemAvatar>
                                                     <Avatar alt={review.name} src={review.avatarSrc} />
@@ -861,7 +992,7 @@ function PageLayout({
                                                 />
                                             </ListItem>
                                             {indx < reviews.length - 1 && <Divider variant="inset" component="li" />}
-                                        </React.Fragment>
+                                        </Box>
                                     ))}
                                 </List>
                             )}
@@ -947,7 +1078,6 @@ function PageLayout({
                                                         } }                                             />
                                         </Box>
                                     )}
-                               </Container>
                             </Box>
                         </Grid>
                     </Grid>

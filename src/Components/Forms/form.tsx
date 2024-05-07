@@ -442,8 +442,19 @@ export function Form({
                                        overflow: "hidden", 
                                        borderRadius: "10px", 
                                        overflowY: "auto", 
-                                       scrollbarColor: mode === "dark" ? "#47008F #F5EBFF" : "#F5EBFF #47008F", 
-                                       scrollbarWidth: "thin",
+                                       "&::-webkit-scrollbar": {
+                                       width: "9px",
+                                       },
+                                      "&::-webkit-scrollbar-track": {
+                                       background: mode === "dark" ? "#AA98A9 #F5EBFF" : "#AA98A9 #F5EBFF", // Background color of the track
+                                       },
+                                      "&::-webkit-scrollbar-thumb": {
+                                      background: "#CF9FF", // Color of the scroll thumb
+                                      borderRadius: "10px", // Roundness of the scroll thumb
+                                       },
+                                      "&::-webkit-scrollbar-thumb:hover": {
+                                      background: "#AA98A9", // Color on hover
+                                       },
                                        maxWidth: "100%", 
                                        '@media (min-width: 350px)': {
                                         maxWidth: "350px", 
