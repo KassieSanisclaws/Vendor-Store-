@@ -42,23 +42,23 @@ const AppThemeProvider: React.FC<AppThemeProviderProps> = ({ children }) => {
         main: '#E0C2FF',
         light: '#F5EBFF',
         dark: '#47008F'
+      },
+
     },
-  
-  },
-  components: {
-       MuiIcon: {
-           styleOverrides: {
-              root: {
-                    '&:hover': {
-                    '& .MuiSvgIcon-root': {
-                     color: 'red',
-                 },
+    components: {
+      MuiIcon: {
+        styleOverrides: {
+          root: {
+            '&:hover': {
+              '& .MuiSvgIcon-root': {
+                color: 'red',
               },
-           }
+            },
+          }
+        }
       }
-    }
-  },
-});
+    },
+  });
 
   return (
     <ThemeContext.Provider value={{ mode, toggleThemeMode }}>

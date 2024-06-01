@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CssBaseline, Container, Box, TextField, Typography, Button, Snackbar, Alert, AlertColor, Grid } from '@mui/material';
 import MainImg from "../../assets/Pictures/Untitled2.png";
@@ -34,7 +34,7 @@ export interface VendorFormData {
     vendorBusinessLicenseNumber: number;
 }
 
-interface FormProps { 
+interface FormProps {
     mode: string;
     title: string;
     icon: React.ReactNode;
@@ -92,6 +92,7 @@ export function Form({
     includeRegisterLinkField = false,
     includeImageField = false,
     formType,
+    containerWidth = "50%",
     includeSnackbarPopup = false,
     handleSnackbarClosed,
     snackbarState,
@@ -432,9 +433,9 @@ export function Form({
     }
 
     return (
-        <Grid container sx={{ height: "100%", display: "flex", justifyContent: "center"}}>
-            <Box sx={{ height: "100%", margin: "3% 5% 7% 5%" }}>
-                <Box sx={{ bgcolor: mode === "dark" ? "primary.light" : "#F5EBFF", padding: "40px", overflow: "hidden", paddingBlock: "40px", borderRadius: "15px" }}>
+        <Container maxWidth="xl" sx={{ height: "100%", mt: 3, mb: 6 }} style={{ width: containerWidth }}>
+            <Box sx={{ height: "100%" }}>
+                <Container sx={{ bgcolor: mode === "dark" ? "#47008F" : "#F5EBFF", height: "90vh", padding: "40px", overflow: "hidden", paddingBlock: "40px", borderRadius: "15px" }}>
                     <CssBaseline />
                     <Box sx={{  bgcolor: mode === "dark" ? "primary.dark" : "primary.light", 
                                        height: "100%", 
@@ -442,35 +443,8 @@ export function Form({
                                        overflow: "hidden", 
                                        borderRadius: "10px", 
                                        overflowY: "auto", 
-                                       "&::-webkit-scrollbar": {
-                                       width: "9px",
-                                       },
-                                      "&::-webkit-scrollbar-track": {
-                                       background: mode === "dark" ? "#AA98A9 #F5EBFF" : "#AA98A9 #F5EBFF", // Background color of the track
-                                       },
-                                      "&::-webkit-scrollbar-thumb": {
-                                      background: "#CF9FF", // Color of the scroll thumb
-                                      borderRadius: "10px", // Roundness of the scroll thumb
-                                       },
-                                      "&::-webkit-scrollbar-thumb:hover": {
-                                      background: "#AA98A9", // Color on hover
-                                       },
-                                       maxWidth: "100%", 
-                                       '@media (min-width: 350px)': {
-                                        maxWidth: "350px", 
-                                        },
-                                        '@media (min-width:390px)': { 
-                                        maxWidth: "350px", 
-                                        },
-                                       '@media (min-width:420px)': { 
-                                        maxWidth: "350px", 
-                                       },
-                                        '@media (min-width:700px)': { 
-                                         maxWidth: "450px", 
-                                        },
-                                       '@media (min-width:960px)': { 
-                                       maxWidth: "600px", 
-                                       },
+                                       scrollbarColor: mode === "dark" ? "#47008F #F5EBFF" : "#F5EBFF #47008F", 
+                                       scrollbarWidth: "thin",  
                                        }}>
                         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                             {icon}
@@ -495,18 +469,18 @@ export function Form({
                             )}
 
                             {includeImageField && (
-                                <Box sx={{  
-                                       height: "13rem", 
-                                       width: "100%",
-                                       display: "flex",
-                                       alignContent: "center",
-                                       justifyContent: "center", 
-                                       overflow: "hidden" 
-                                    }} 
-                                     mt={2} 
-                                     mb={2}
-                                     >
-                                    <img src={MainImg} style={{  width: "70vw",  maxHeight: "100%",  objectFit: "cover", }} />
+                                <Box sx={{
+                                    height: "13rem",
+                                    width: "100%",
+                                    display: "flex",
+                                    alignContent: "center",
+                                    justifyContent: "center",
+                                    overflow: "hidden"
+                                }}
+                                    mt={2}
+                                    mb={2}
+                                >
+                                    <img src={MainImg} style={{ width: "70vw", maxHeight: "100%", objectFit: "cover", }} />
                                 </Box>
                             )}
 
@@ -853,8 +827,10 @@ export function Form({
 
                         </Box>
                     </Box>
+                    </Container>
                 </Box>
-            </Box>
-        </Grid>
-    )
-}
+            </Container> 
+        )
+    }
+
+    
